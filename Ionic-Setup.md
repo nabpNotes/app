@@ -1,3 +1,7 @@
+---
+title: Ionic-Setup
+---
+
 # Getting started: Ionic
 
 ## Voraussetzungen
