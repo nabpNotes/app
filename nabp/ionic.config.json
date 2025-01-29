@@ -1,0 +1,7 @@
+{
+  "name": "nabp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
