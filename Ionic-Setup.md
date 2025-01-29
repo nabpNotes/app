@@ -28,13 +28,21 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ## Projekt starten
 
+
 1. Ionic Projekt initialisieren.
+    - ⚠️ **Achtung:**  dieser Schritt muss nur bei der initialen Ersellung des Projekts gemacht werden.
     - [Templates](https://javascript.plainenglish.io/the-different-types-of-ionic-5-starter-template-75091ae916e3)
 ```bash
 ionic start {{Projekt-Name}} {{Template}} --type=react --capacitor
 ```
 
-2. App runnen.
+2. Npm Install ausführen.
+    - Damit alle dependencies installiert werden muss der folgende Befehl ausgeführt werden.
+```bash
+npm install
+```
+
+3. App runnen.
     - Hiermit siehst du ein Preview deiner App im Browser.
 ```bash
 ionic serve
