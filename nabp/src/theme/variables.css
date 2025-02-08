@@ -1,2 +1,67 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700');
+
+:root {
+    --background-color: #151515;
+    --search-background-color: #E0E0E0;
+    --text-color: #E0E0E0;
+    --negative-text-color: #151515;
+    --placeholder-color: #252525;
+}
+
+h1 {
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+h2 {
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+h3 {
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+input {
+    background-color: var(--search-background-color);
+    color: var(--negative-text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+input:focus {
+    outline: none;
+}
+
+::placeholder {
+    color: var(--placeholder-color);
+    font-family: Poppins, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
