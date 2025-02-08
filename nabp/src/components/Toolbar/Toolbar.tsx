@@ -1,5 +1,6 @@
 import './Toolbar.css';
 import React, {useState} from "react";
+import {IonPage} from "@ionic/react";
 
 import nabpIcon from '../../assets/icons/nabp.svg';
 import backIcon from '../../assets/icons/back.svg';
