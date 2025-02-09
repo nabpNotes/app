@@ -2,7 +2,6 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 40px 10px 10px 10px;
 }
 
 .toolbarIconContainer {

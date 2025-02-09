@@ -20,7 +20,7 @@ interface ToolbarProps {
  * This component is used to display the toolbar at the top of the page.
  * the toolbar should be used in every page with various states.
  **/
-const Toolbar: React.FC<ToolbarProps> = ({ searchable, pageTitle, backButton }) => {
+const Toolbar: React.FC<ToolbarProps> = ({ searchable, pageTitle, backButton }: ToolbarProps): JSX.Element => {
     const [searchableState, setSearchableState] = useState(searchable);
     const [pageTitleState, setPageTitleState] = useState(pageTitle);
     const [backButtonState, setBackButtonState] = useState(backButton);

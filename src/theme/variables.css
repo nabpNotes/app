@@ -4,6 +4,7 @@ http://ionicframework.com/docs/theming/ */
 
 :root {
     --background-color: #151515;
+    --card-background-color: #252525;
     --search-background-color: #E0E0E0;
     --text-color: #E0E0E0;
     --negative-text-color: #151515;
