@@ -1,0 +1,16 @@
+.groupListItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 75px;
+    background-color: var(--card-background-color);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.groupListItemTitleContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}

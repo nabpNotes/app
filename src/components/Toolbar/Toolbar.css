@@ -1,0 +1,24 @@
+.toolbarContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.toolbarIconContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.toolbarNabpIcon {
+    width: 50px;
+}
+
+.toolbarSearchInputContainer {
+    grid-column: span 2;
+}
+
+.toolbarSearchInput {
+    width: 100%;
+    height: 30px;
+}
