@@ -2,6 +2,10 @@
 http://ionicframework.com/docs/theming/ */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700');
 
+html, body {
+    font-size: 16px;
+}
+
 :root {
     --background-color: #151515;
     --card-background-color: #252525;
@@ -14,7 +18,7 @@ http://ionicframework.com/docs/theming/ */
 h1 {
     color: var(--text-color);
     font-family: Poppins, sans-serif;
-    font-size: 20px;        /* TODO Vielleicht noch änderen zu größerem */
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -24,7 +28,7 @@ h1 {
 h2 {
     color: var(--text-color);
     font-family: Poppins, sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -34,18 +38,37 @@ h2 {
 h3 {
     color: var(--text-color);
     font-family: Poppins, sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     margin: 0;
 }
 
+h6 {
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+p {
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 input {
     background-color: var(--search-background-color);
     color: var(--negative-text-color);
     font-family: Poppins, sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
