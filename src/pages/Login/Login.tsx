@@ -22,6 +22,7 @@ const Login: React.FC = (): JSX.Element => {
     const [passwordError, setPasswordError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [repeatPasswordError, setRepeatPasswordError] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
         validateToken().then(r => {
@@ -52,7 +53,7 @@ const Login: React.FC = (): JSX.Element => {
                 register(email, username, password).then(r => {
                     handleResponse(r);
                 });
-            } //TODO don't know if this should be caught
+            }
         } else {
             const dataValidation = validateFormData(username, password);
             const isValid = showErrorMessage(dataValidation);
@@ -60,13 +61,14 @@ const Login: React.FC = (): JSX.Element => {
                 login(username, password).then(r => {
                     handleResponse(r);
                 });
-            } //TODO don't know if this should be caught
+            }
         }
     }
 
     const handleResponse = (r: any) => {
         if (r.error) {
-            console.error(r.error); //TODO implement error handling
+            setError(r.error);
+            console.error(r.error);
         } else {
             localStorage.setItem('token', r.token);
             localStorage.setItem('username', r.username);
@@ -201,7 +203,7 @@ const Login: React.FC = (): JSX.Element => {
                             </div>
                             <input className={styles.loginInput} type="password" id="repeatPassword" name="repeatPassword"
                                    onChange={handleChange} value={formData.repeatPassword} required/>
-                        </div>
+                    </div>
                         : null}
                     <div className={styles.loginRegisterToggleContainer}>
                         <p className={styles.loginRegisterToggle}
@@ -221,6 +223,10 @@ const Login: React.FC = (): JSX.Element => {
                                     : null}
                         </button>
                     </div>
+                    {error ? <div className={styles.errorContainer}>
+                        <p className={styles.errorText}>{error}</p>
+                    </div>
+                        : null}
                 </form>
             </div>
         </div>

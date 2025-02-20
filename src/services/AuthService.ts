@@ -1,11 +1,13 @@
 import CryptoJS from 'crypto-js';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 /**
  * This function sends a GET request to the server to validate the token.
  */
 async function validateToken(): Promise<boolean> {
     try {
-        const response = await fetch('http://localhost:3000/auth/', { //TODO change to generic url
+        const response = await fetch(`${API_URL}/auth/`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -28,7 +30,7 @@ async function validateToken(): Promise<boolean> {
 async function register(email: string, username: string, password: string) {
     password = CryptoJS.SHA256(password).toString();
     try {
-        const response = await fetch('http://localhost:3000/auth/register', { //TODO change to generic url
+        const response = await fetch(`${API_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -57,7 +59,7 @@ async function register(email: string, username: string, password: string) {
 async function login(username: string, password: string) {
     password = CryptoJS.SHA256(password).toString();
     try {
-        const response = await fetch('http://localhost:3000/auth/login', { //TODO change to generic url
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
