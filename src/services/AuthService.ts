@@ -1,12 +1,14 @@
+import CryptoJS from 'crypto-js';
+
 /**
  * This function sends a GET request to the server to validate the token.
  */
 async function validateToken(): Promise<boolean> {
     try {
-        const response = await fetch('http://localhost:3000/auth/validate-token', {
+        const response = await fetch('http://localhost:3000/auth/', { //TODO change to generic url
             method: 'GET',
             headers: {
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZW5pcyI6InBlbmlzIiwiaWF0IjoxNzM5OTA5OTAwLCJleHAiOjE3NDI1MDE5MDB9.DsArJ3ISPixju8X0FGzU9acYsRGPCHcsdylNgJN8BmQ`
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         });
         return response.ok;
@@ -15,4 +17,62 @@ async function validateToken(): Promise<boolean> {
         return false;
     }
 }
-export {validateToken};
+
+/**
+ * This function sends a POST request to the server to register a new user.
+ * @param email - The email of the user
+ * @param username - The username of the user
+ * @param password - The password of the user
+ * @returns The response from the server as json
+ */
+async function register(email: string, username: string, password: string) {
+    password = CryptoJS.SHA256(password).toString();
+    try {
+        const response = await fetch('http://localhost:3000/auth/register', { //TODO change to generic url
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                username: username,
+                password: password
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
+/**
+ * This function sends a POST request to the server to log in a user.
+ * @param username - The username of the user
+ * @param password - The password of the user
+ * @returns The response from the server as json
+ */
+async function login(username: string, password: string) {
+    password = CryptoJS.SHA256(password).toString();
+    try {
+        const response = await fetch('http://localhost:3000/auth/login', { //TODO change to generic url
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+export {validateToken , register, login};
