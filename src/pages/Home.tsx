@@ -21,7 +21,7 @@ const Home: React.FC = (): JSX.Element => {
     }, []);
 
     return (
-        <div className={styles.background}>
+        <div className='background'>
             <Toolbar
                 searchable={true}
                 pageTitle={"WG Uni 🏚️"}

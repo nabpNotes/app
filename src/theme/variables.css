@@ -110,3 +110,10 @@ input:focus {
     font-weight: 400;
     line-height: normal;
 }
+
+.background {
+    background-color: var(--background-color);
+    height: 100%;
+    width: 100%;
+    padding: 40px 10px 10px 10px;
+}
