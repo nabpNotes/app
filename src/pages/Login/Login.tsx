@@ -1,6 +1,6 @@
 import styles from './Login.module.css';
 import React, {useEffect, useState} from "react";
-import {useIonRouter} from "@ionic/react";
+import {IonContent, useIonRouter} from "@ionic/react";
 
 import {validateToken} from "../../services/AuthService";
 import {register, login} from "../../services/AuthService";
@@ -153,83 +153,87 @@ const Login: React.FC = (): JSX.Element => {
     }
 
     return (
-        <div className="background">
-            <div className={styles.loginContainer}>
-                <div className={styles.logoContainer}>
-                    <img className={styles.logo} src={nabpIcon} alt="nabp-icon"/>
-                    <h3>Your smart note-taking app</h3>
-                </div>
-                <h1 className={styles.loginTitle}>
-                    {formType === 'login' ? 'Login'
-                        : formType === 'register' ? 'Register'
+        <IonContent>
+            <div className="background">
+                <div className={styles.loginContainer}>
+                    <div className={styles.logoContainer}>
+                        <img className={styles.logo} src={nabpIcon} alt="nabp-icon"/>
+                        <h3>Your smart note-taking app</h3>
+                    </div>
+                    <h1 className={styles.loginTitle}>
+                        {formType === 'login' ? 'Login'
+                            : formType === 'register' ? 'Register'
+                                : null}
+                    </h1>
+                    <form className={styles.loginForm} onSubmit={handleSubmit}>
+                        {formType === 'register' ? <div className={styles.loginInputContainer}>
+                                <div className={styles.labelContainer}>
+                                    <label className={styles.loginLabel} htmlFor="email">Email</label>
+                                    {emailError ? <p className={styles.errorLabel}>{emailError}</p> : null}
+                                </div>
+                                <input className={styles.loginInput} type="email" id="email" name="email"
+                                       onChange={handleChange} value={formData.email} required/>
+                            </div>
                             : null}
-                </h1>
-                <form className={styles.loginForm} onSubmit={handleSubmit}>
-                    {formType === 'register' ? <div className={styles.loginInputContainer}>
+                        <div className={styles.loginInputContainer}>
                             <div className={styles.labelContainer}>
-                                <label className={styles.loginLabel} htmlFor="email">Email</label>
-                                {emailError ? <p className={styles.errorLabel}>{emailError}</p> : null}
+                                <label className={styles.loginLabel} htmlFor="username">
+                                    {formType === 'login' ? 'Email / Username'
+                                        : formType === 'register' ? 'Username'
+                                            : null}
+                                </label>
+                                {usernameError ? <p className={styles.errorLabel}>{usernameError}</p> : null}
                             </div>
-                            <input className={styles.loginInput} type="email" id="email" name="email"
-                                   onChange={handleChange} value={formData.email} required/>
+                            <input className={styles.loginInput} type="text" id="username" name="username"
+                                   onChange={handleChange} value={formData.username} required/>
                         </div>
-                        : null}
-                    <div className={styles.loginInputContainer}>
-                        <div className={styles.labelContainer}>
-                            <label className={styles.loginLabel} htmlFor="username">
-                                {formType === 'login' ? 'Email / Username'
-                                    : formType === 'register' ? 'Username'
+                        <div className={formType === 'login' ? styles.lastInputContainer
+                            : formType === 'register' ? styles.loginInputContainer
+                                : ''}>
+                            <div className={styles.labelContainer}>
+                                <label className={styles.loginLabel} htmlFor="password">Password</label>
+                                {passwordError ? <p className={styles.errorLabel}>{passwordError}</p> : null}
+                            </div>
+                            <input className={styles.loginInput} type="password" id="password" name="password"
+                                   onChange={handleChange} value={formData.password} required/>
+                        </div>
+                        {formType === 'register' ? <div className={styles.lastInputContainer}>
+                                <div className={styles.labelContainer}>
+                                    <label className={styles.loginLabel} htmlFor="repeatPassword">Repeat Password</label>
+                                    {repeatPasswordError ?
+                                        <p className={styles.errorLabel}>{repeatPasswordError}</p> : null}
+                                </div>
+                                <input className={styles.loginInput} type="password" id="repeatPassword"
+                                       name="repeatPassword"
+                                       onChange={handleChange} value={formData.repeatPassword} required/>
+                            </div>
+                            : null}
+                        <div className={styles.loginRegisterToggleContainer}>
+                            <p className={styles.loginRegisterToggle}
+                               onClick={() => setFormType(formType === 'login' ? 'register' : 'login')}>
+                                {formType === 'login' ? 'not registered yet?'
+                                    : formType === 'register' ? 'already have an account?'
                                         : null}
-                            </label>
-                            {usernameError ? <p className={styles.errorLabel}>{usernameError}</p> : null}
+                            </p>
                         </div>
-                        <input className={styles.loginInput} type="text" id="username" name="username"
-                               onChange={handleChange} value={formData.username} required/>
-                    </div>
-                    <div className={formType === 'login' ? styles.lastInputContainer
-                        : formType === 'register' ? styles.loginInputContainer
-                            : ''}>
-                        <div className={styles.labelContainer}>
-                            <label className={styles.loginLabel} htmlFor="password">Password</label>
-                            {passwordError ? <p className={styles.errorLabel}>{passwordError}</p> : null}
+                        <div className={styles.loginButtonContainer}>
+                            <button
+                                className={styles.loginButton}
+                                type="submit"
+                                disabled={!isFormValid}>
+                                {formType === 'login' ? 'Login'
+                                    : formType === 'register' ? 'Register'
+                                        : null}
+                            </button>
                         </div>
-                        <input className={styles.loginInput} type="password" id="password" name="password"
-                               onChange={handleChange} value={formData.password} required/>
-                    </div>
-                    {formType === 'register' ? <div className={styles.lastInputContainer}>
-                            <div className={styles.labelContainer}>
-                                <label className={styles.loginLabel} htmlFor="repeatPassword">Repeat Password</label>
-                                {repeatPasswordError ? <p className={styles.errorLabel}>{repeatPasswordError}</p> : null}
+                        {error ? <div className={styles.errorContainer}>
+                                <p className={styles.errorText}>{error}</p>
                             </div>
-                            <input className={styles.loginInput} type="password" id="repeatPassword" name="repeatPassword"
-                                   onChange={handleChange} value={formData.repeatPassword} required/>
-                    </div>
-                        : null}
-                    <div className={styles.loginRegisterToggleContainer}>
-                        <p className={styles.loginRegisterToggle}
-                           onClick={() => setFormType(formType === 'login' ? 'register' : 'login')}>
-                            {formType === 'login' ? 'not registered yet?'
-                                : formType === 'register' ? 'already have an account?'
-                                    : null}
-                        </p>
-                    </div>
-                    <div className={styles.loginButtonContainer}>
-                        <button
-                            className={styles.loginButton}
-                            type="submit"
-                            disabled={!isFormValid}>
-                            {formType === 'login' ? 'Login'
-                                : formType === 'register' ? 'Register'
-                                    : null}
-                        </button>
-                    </div>
-                    {error ? <div className={styles.errorContainer}>
-                        <p className={styles.errorText}>{error}</p>
-                    </div>
-                        : null}
-                </form>
+                            : null}
+                    </form>
+                </div>
             </div>
-        </div>
+        </IonContent>
     );
 };
 

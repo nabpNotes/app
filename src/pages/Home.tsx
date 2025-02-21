@@ -4,6 +4,7 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
 
 import {fetchGroups} from '../services/GroupService';
+import {IonContent, IonFooter, IonHeader} from "@ionic/react";
 
 /**
  * Home page
@@ -22,22 +23,28 @@ const Home: React.FC = (): JSX.Element => {
 
     return (
         <div className='background'>
-            <Toolbar
-                searchable={true}
-                pageTitle={"WG Uni 🏚️"}
-                backButton={false}
-            />
-            <div className={styles.groupList}>
-                {groups.map((group: any) => (
-                    <GroupListItem
-                        type={'group'}
-                        title={group.name}
-                    />
-                ))}
-            </div>
-            <div className={styles.addButtonContainer}>
-                <button className={styles.addButton}>+</button>
-            </div>
+            <IonHeader>
+                <Toolbar
+                    searchable={true}
+                    pageTitle={"WG Uni 🏚️"}
+                    backButton={false}
+                />
+            </IonHeader>
+            <IonContent>
+                <div className={styles.groupList}>
+                    {groups.map((group: any) => (
+                        <GroupListItem
+                            type={'group'}
+                            title={group.name}
+                        />
+                    ))}
+                </div>
+            </IonContent>
+            <IonFooter>
+                <div className={styles.addButtonContainer}>
+                    <button className={styles.addButton}>+</button>
+                </div>
+            </IonFooter>
         </div>
     );
 };
