@@ -1,6 +1,7 @@
 .toolbarContainer {
     width: 100%;
     display: grid;
+    row-gap: 15px;
     grid-template-columns: 1fr 1fr;
 }
 

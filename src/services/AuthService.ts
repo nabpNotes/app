@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 /**
  * This function sends a GET request to the server to validate the token.
@@ -77,4 +77,4 @@ async function login(username: string, password: string) {
         return {error: 'An unexpected Error Occurred', statusCode: 500};
     }
 }
-export {validateToken , register, login};
+export {validateToken, register, login};
