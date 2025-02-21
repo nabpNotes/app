@@ -9,7 +9,7 @@ import GroupListItem from '../components/GroupListItem/GroupListItem';
  * This page is the home page of the application.
  * It displays the groups the user is a member of.
  **/
-const Home: React.FC = () => {
+const Home: React.FC = (): JSX.Element => {
   return (
       <div className="background">
           <Toolbar
