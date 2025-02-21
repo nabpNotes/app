@@ -30,7 +30,7 @@ const Home: React.FC = (): JSX.Element => {
                     backButton={false}
                 />
             </IonHeader>
-            <IonContent>
+            <IonContent className="ionContent">
                 <div className={styles.groupList}>
                     {groups.map((group: any) => (
                         <GroupListItem

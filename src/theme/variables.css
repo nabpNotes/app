@@ -111,6 +111,10 @@ input:focus {
     line-height: normal;
 }
 
+.ionContent {
+    --background: var(--background-color);
+}
+
 .background {
     background-color: var(--background-color);
     height: 100%;
