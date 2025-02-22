@@ -117,7 +117,8 @@ input:focus {
 
 .background {
     background-color: var(--background-color);
-    height: 100%;
+    height: fit-content;
+    min-height: 100%;
     width: 100%;
     padding: 40px 10px 10px 10px;
 }
