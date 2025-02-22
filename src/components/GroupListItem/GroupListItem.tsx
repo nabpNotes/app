@@ -12,8 +12,8 @@ interface GroupListItemProps {
  * GroupListItem component
  * @param {string} itemId - The id of the group
  * @param {string} type - The type of the group
- * @param {string} title
- * @returns {JSX.Element}
+ * @param {string} title - The title of the group
+ * @returns {JSX.Element} - The group list item
  * This component is used to display a group/list item.
  */
 const GroupListItem: React.FC<GroupListItemProps> = ({itemId, type, title }: GroupListItemProps): JSX.Element => {

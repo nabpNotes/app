@@ -4,7 +4,8 @@ import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
 
 import {fetchGroups} from '../services/GroupService';
-import {IonContent, IonFooter, IonHeader} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, useIonRouter} from "@ionic/react";
+import {validateToken} from "../services/AuthService";
 
 /**
  * Home page
@@ -13,7 +14,14 @@ import {IonContent, IonFooter, IonHeader} from "@ionic/react";
  * It displays the groups the user is a member of.
  **/
 const Home: React.FC = (): JSX.Element => {
+    const router = useIonRouter();
     const [groups, setGroups] = React.useState([]);
+
+    useEffect(() => {
+        validateToken().then(r => {
+            !r ? router.push('/login') : null;
+        });
+    }, []);
 
     useEffect(() => {
         fetchGroups().then((data) => {

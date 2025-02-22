@@ -4,6 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL as string;
 
 /**
  * This function sends a GET request to the server to validate the token.
+ * @returns A boolean value indicating if the token is valid
  */
 async function validateToken(): Promise<boolean> {
     try {

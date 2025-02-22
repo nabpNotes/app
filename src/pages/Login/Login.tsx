@@ -34,11 +34,19 @@ const Login: React.FC = (): JSX.Element => {
         validateFormCompletion() ? setIsFormValid(true) : setIsFormValid(false);
     }, [formData, formType]);
 
+    /**
+     * This function handles the change of the input fields
+     * @param event - The event of the input field
+     */
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
         setFormData((prevData) => ({...prevData, [name]: value}));
     }
 
+    /**
+     * This function handles the submit of the form
+     * @param event - The event of the form
+     */
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -65,6 +73,10 @@ const Login: React.FC = (): JSX.Element => {
         }
     }
 
+    /**
+     * This function handles the response of the server
+     * @param r - The response of the server
+     */
     const handleResponse = (r: any) => {
         if (r.error) {
             setError(r.error);
@@ -78,6 +90,10 @@ const Login: React.FC = (): JSX.Element => {
         }
     }
 
+    /**
+     * This function shows the error message of the input fields
+     * @param dataValidation - The validation of the input fields
+     */
     const showErrorMessage = (dataValidation: { id: string, valid: boolean, message: string }[]) => {
         let isValid = true;
         dataValidation.forEach((validation: { id: string, valid: boolean, message: string }) => {
@@ -117,6 +133,14 @@ const Login: React.FC = (): JSX.Element => {
         return isValid;
     }
 
+    /**
+     * This function validates the form data
+     * @param username - The username of the user
+     * @param password - The password of the user
+     * @param email - The email of the user
+     * @param repeatPassword - The repeated password of the user
+     * @returns The validation of the form data
+     */
     const validateFormData = (username: string, password: string, email?: string, repeatPassword?: string) => {
         //TODO should be implemented in a more advanced way
         let dataValidation: { id: string, valid: boolean, message: string }[] = [];
@@ -143,6 +167,10 @@ const Login: React.FC = (): JSX.Element => {
         return dataValidation;
     }
 
+    /**
+     * This function validates the completion of the form
+     * @returns The validation of the form completion
+     */
     const validateFormCompletion = () => {
         //TODO should be implemented in a more advanced way
         if (formType === 'register') {
