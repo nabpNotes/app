@@ -34,6 +34,8 @@ const Home: React.FC = (): JSX.Element => {
                 <div className={styles.groupList}>
                     {groups.map((group: any) => (
                         <GroupListItem
+                            key={group._id}
+                            itemId={group._id}
                             type={'group'}
                             title={group.name}
                         />
