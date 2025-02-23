@@ -1,10 +1,10 @@
 import styles from './Home.module.css';
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
 
 import {fetchGroups} from '../services/GroupService';
-import {IonContent, IonFooter, IonHeader, useIonRouter} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, IonPage, useIonRouter} from "@ionic/react";
 import {validateToken} from "../services/AuthService";
 
 /**
@@ -15,7 +15,7 @@ import {validateToken} from "../services/AuthService";
  **/
 const Home: React.FC = (): JSX.Element => {
     const router = useIonRouter();
-    const [groups, setGroups] = React.useState([]);
+    const [groups, setGroups] = useState([]);
 
     useEffect(() => {
         validateToken().then(r => {
@@ -30,7 +30,7 @@ const Home: React.FC = (): JSX.Element => {
     }, []);
 
     return (
-        <div className='background'>
+        <IonPage className='background'>
             <IonHeader>
                 <Toolbar
                     searchable={true}
@@ -55,7 +55,7 @@ const Home: React.FC = (): JSX.Element => {
                     <button className={styles.addButton}>+</button>
                 </div>
             </IonFooter>
-        </div>
+        </IonPage>
     );
 };
 
