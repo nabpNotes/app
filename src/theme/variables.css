@@ -115,6 +115,10 @@ input:focus {
     --background: var(--background-color);
 }
 
+.ionHeader {
+    box-shadow: none;
+}
+
 .background {
     background-color: var(--background-color);
     height: fit-content;

@@ -22,6 +22,11 @@ async function fetchGroups() {
     }
 }
 
+/**
+ * This function sends a GET request to the server to fetch a group.
+ * @param id - The id of the group
+ * @returns The response from the server as json
+ */
 async function fetchGroup(id: string) {
     try {
         const response = await fetch(`${API_URL}/group/${id}`, {

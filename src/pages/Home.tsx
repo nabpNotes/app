@@ -31,7 +31,7 @@ const Home: React.FC = (): JSX.Element => {
 
     return (
         <IonPage className='background'>
-            <IonHeader>
+            <IonHeader className='ionHeader'>
                 <Toolbar
                     searchable={true}
                     pageTitle={"WG Uni 🏚️"}

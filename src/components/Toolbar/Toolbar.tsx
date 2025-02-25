@@ -1,10 +1,9 @@
 import './Toolbar.css';
 import React, {useState} from "react";
-import {IonPage, useIonRouter} from "@ionic/react";
+import {useIonRouter} from "@ionic/react";
 
 import nabpIcon from '../../assets/icons/nabp.svg';
 import backIcon from '../../assets/icons/back.svg';
-import {navigate} from "ionicons/icons";
 
 interface ToolbarProps {
     searchable: boolean;

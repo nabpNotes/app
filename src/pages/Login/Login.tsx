@@ -44,7 +44,7 @@ const Login: React.FC = (): JSX.Element => {
     }
 
     /**
-     * This function handles the submit of the form
+     * This function handles submit of the form
      * @param event - The event of the form
      */
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -79,8 +79,8 @@ const Login: React.FC = (): JSX.Element => {
      */
     const handleResponse = (r: any) => {
         if (r.error) {
-            setError(r.error);
-            console.error(r.error);
+            setError(r.message);
+            console.error(r);
         } else {
             localStorage.setItem('token', r.token);
             localStorage.setItem('username', r.username);

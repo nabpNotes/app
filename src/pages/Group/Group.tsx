@@ -8,6 +8,12 @@ import {fetchGroup} from "../../services/GroupService";
 import {useParams} from "react-router";
 import {fetchListsByGroup} from "../../services/ListService";
 
+/**
+ * Group page
+ * @returns {JSX.Element}
+ * This page is the group page of the application.
+ * It displays the lists of the group.
+ **/
 const Group: React.FC = (): JSX.Element => {
     const router = useIonRouter();
     const { id } = useParams<{ id: string }>();
@@ -32,7 +38,7 @@ const Group: React.FC = (): JSX.Element => {
 
     return (
         <IonPage className='background'>
-            <IonHeader>
+            <IonHeader className='ionHeader'>
                 <Toolbar
                     searchable={false}
                     pageTitle={group.name}
