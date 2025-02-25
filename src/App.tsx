@@ -34,6 +34,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Group from "./pages/Group/Group";
 
 setupIonicReact();
 
@@ -51,7 +52,7 @@ const App: React.FC = () => (
           <Home />
         </Route>
         <Route exact path="/group/:id">
-          {/*TODO Group Page*/}
+          <Group />
         </Route>
         <Route exact path="/list/:id">
           {/*TODO List Page*/}
