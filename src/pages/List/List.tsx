@@ -2,13 +2,15 @@ import styles from './List.module.css';
 import {IonContent, IonFooter, IonHeader, IonPage} from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import React, {useEffect, useState} from "react";
-import { io } from "socket.io-client";
+import {io, Socket} from "socket.io-client";
 import {useParams} from "react-router";
+import TextItem from "../../components/ListItem/TextItem/TextItem";
 
 const List: React.FC = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
     const [list, setList] = useState(Object);
     const [listItems, setListItems] = useState([]);
+    const [socket, setSocket] = useState<Socket>();
 
     useEffect(() => {
         const socket = io('http://localhost:3000', {
@@ -16,6 +18,7 @@ const List: React.FC = (): JSX.Element => {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         });
+        setSocket(socket);
 
         socket.on('connect', () => {
             console.log('Socket.io connection established');
@@ -23,7 +26,17 @@ const List: React.FC = (): JSX.Element => {
         });
 
         socket.on('list', (data) => {
+            console.log(data);
             setList(data);
+        });
+
+        socket.on('listItems', (data) => {
+            console.log(data);
+            setListItems(data);
+        });
+
+        socket.on('message', (data) => {
+            console.log(data);
         });
 
         socket.on('disconnect', () => {
@@ -39,6 +52,13 @@ const List: React.FC = (): JSX.Element => {
         };
     }, []);
 
+    useEffect(() => {
+        setListItems([]);
+        if (socket) {
+            socket.emit('getListItems', {listId: id});
+        }
+    }, [list]);
+
     return (
         <IonPage className='background'>
             <IonHeader className='ionHeader'>
@@ -50,7 +70,16 @@ const List: React.FC = (): JSX.Element => {
             </IonHeader>
             <IonContent className="ionContent">
                 <div className={styles.listsItemContainer}>
-
+                    {listItems.map((listItem: any) => {
+                        switch (listItem.type) {
+                            case 'text':
+                                return <TextItem
+                                    key={listItem.id}
+                                    itemData={listItem}/>;
+                            default:
+                                return null;
+                        }
+                    })}
                 </div>
             </IonContent>
             <IonFooter>
