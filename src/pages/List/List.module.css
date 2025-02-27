@@ -1,0 +1,20 @@
+.listsItemContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    gap: 10px;
+}
+
+.addButtonContainer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0 ;
+}
+
+.addButton {
+    width: 100%;
+    background-color: var(--card-background-color);
+    border-radius: 0;
+    font-size: 2rem;
+}

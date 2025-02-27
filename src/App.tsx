@@ -35,6 +35,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import Group from "./pages/Group/Group";
+import List from "./pages/List/List";
 
 setupIonicReact();
 
@@ -42,6 +43,9 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route exact path="**">
+          <Redirect to="/login" />
+        </Route>
         <Route exact path="/">
           <Redirect to="/login" />
         </Route>
@@ -55,7 +59,7 @@ const App: React.FC = () => (
           <Group />
         </Route>
         <Route exact path="/list/:id">
-          {/*TODO List Page*/}
+          <List />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
