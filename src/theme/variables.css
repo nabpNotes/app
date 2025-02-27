@@ -13,6 +13,8 @@ html, body {
     --text-color: #E0E0E0;
     --negative-text-color: #151515;
     --placeholder-color: #252525;
+    --red: #BC2C2E;
+    --grey-text: #454545;
 }
 
 h1 {
