@@ -13,7 +13,7 @@ const List: React.FC = (): JSX.Element => {
     const [socket, setSocket] = useState<Socket>();
 
     useEffect(() => {
-        const socket = io('http://localhost:3000', {
+        const socket = io('http://localhost:3000', {//TODO: Socket connection must be refactored
             extraHeaders: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
