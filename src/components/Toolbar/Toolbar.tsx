@@ -1,6 +1,6 @@
 import './Toolbar.css';
 import React, {useState} from "react";
-import {IonPage} from "@ionic/react";
+import {useIonRouter} from "@ionic/react";
 
 import nabpIcon from '../../assets/icons/nabp.svg';
 import backIcon from '../../assets/icons/back.svg';
@@ -21,14 +21,20 @@ interface ToolbarProps {
  * the toolbar should be used in every page with various states.
  **/
 const Toolbar: React.FC<ToolbarProps> = ({ searchable, pageTitle, backButton }: ToolbarProps): JSX.Element => {
+    const router = useIonRouter();
+
     const [searchableState, setSearchableState] = useState(searchable);
     const [pageTitleState, setPageTitleState] = useState(pageTitle);
     const [backButtonState, setBackButtonState] = useState(backButton);
 
+    const navigateBack = () => {
+        router.goBack();
+    }
+
     return (
         <div className="toolbarContainer">
             <div className="toolbarIconContainer">
-                {backButton ? <img className="toolbarBackIcon" src={backIcon} alt="back-icon"/>
+                {backButton ? <img className="toolbarBackIcon" src={backIcon} alt="back-icon" onClick={navigateBack}/>
                     : <img className="toolbarNabpIcon" src={nabpIcon} alt="menu-icon"/>
                 }
             </div>

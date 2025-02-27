@@ -18,7 +18,7 @@ npm install react react-dom
 
 3. Anpassung der ExecutionPolicy um RemoteSigned Packages zuzulassen.
     - Mit der Einstellung RemoteSigned dürfen lokal erstellte Skripte ohne Signatur ausgeführt werden.
-    - ⚠️ **Achtung:**  muss nur gemacht werden, wenn Befehle wie `ionic --version` nicht  funktionieren.
+    - ⚠️ **Achtung:** muss nur gemacht werden, wenn Befehle wie `ionic --version` nicht funktionieren.
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
@@ -30,7 +30,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 
 1. Ionic Projekt initialisieren.
-    - ⚠️ **Achtung:**  dieser Schritt muss nur bei der initialen Ersellung des Projekts gemacht werden.
+    - ⚠️ **Achtung:** dieser Schritt muss nur bei der initialen Erstellung des Projekts gemacht werden.
     - [Templates](https://javascript.plainenglish.io/the-different-types-of-ionic-5-starter-template-75091ae916e3)
 ```bash
 ionic start {{Projekt-Name}} {{Template}} --type=react --capacitor
@@ -52,7 +52,7 @@ ionic serve
 
 ### Android Testing 
 
-**Wenn du deine App für Android testen willst gibt es 2 Möglichkeiten, entweder testest du die App auf einem virtuellen oder einem physischen Device in Android Studio.**
+**Wenn du deine App für Android testen willst, gibt es 2 Möglichkeiten, entweder testest du die App auf einem virtuellen oder einem physischen Device in Android Studio.**
 
 1. Android Dateien über den Capacitor erstellen lassen.
 ```bash
@@ -146,7 +146,7 @@ ionic capacitor build ios
 
 2. Nun sollte ein ordner namens `ios` mit der App als native IOS App. Diesen ordner kannst du jetzt in Xcode öffnen.
 3. Jetzt solltest du ein IOS Gerät mit deinem Computer verbinden.
-4. Wähle dieses Gerät in der oberen leiste aus und Klicke anschließend auf `Build and Run`
+4. Wähle dieses Gerät in der oberen Leiste aus und Klicke anschließend auf `Build and Run`
 
     ![](https://docs-assets.developer.apple.com/published/c78867b72637128da112da32fb68b9c8/build-hero-window~dark@2x.png)
 

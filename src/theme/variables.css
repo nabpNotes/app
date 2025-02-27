@@ -110,3 +110,19 @@ input:focus {
     font-weight: 400;
     line-height: normal;
 }
+
+.ionContent {
+    --background: var(--background-color);
+}
+
+.ionHeader {
+    box-shadow: none;
+}
+
+.background {
+    background-color: var(--background-color);
+    height: fit-content;
+    min-height: 100%;
+    width: 100%;
+    padding: 40px 10px 10px 10px;
+}
