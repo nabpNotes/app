@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {io, Socket} from "socket.io-client";
 import {useParams} from "react-router";
 import TextItem from "../../components/ListItem/TextItem/TextItem";
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 const List: React.FC = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ const List: React.FC = (): JSX.Element => {
     const [socket, setSocket] = useState<Socket>();
 
     useEffect(() => {
-        const socket = io('http://localhost:3000', {//TODO: Socket connection must be refactored
+        const socket = io(`${API_URL}`, {//TODO: Socket connection must be refactored
             extraHeaders: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
