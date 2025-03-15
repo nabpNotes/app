@@ -1,0 +1,101 @@
+.background {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.inputLabel {
+    opacity: 0;
+    font-size: 1.25rem;
+    position: absolute;
+    pointer-events: none;
+    padding: 0 5px;
+    transition: transform 0.2s ease, font-size 0.2s ease;
+}
+
+.input {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 0;
+    height: 50px;
+    width: 100%;
+}
+
+.input::placeholder {
+    font-size: 1.25rem;
+}
+
+.input:focus + .inputLabel {
+    opacity: 1;
+    transform: translateY(-150%);
+    font-size: 1rem;
+}
+
+.input:not(:placeholder-shown) + .inputLabel {
+    opacity: 1;
+    transform: translateY(-150%);
+    font-size: 1rem;
+}
+
+.inputBox:focus-within .input::placeholder {
+    opacity: 0;
+}
+
+
+
+.userPicker {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+
+    overflow: scroll;
+    flex-grow: 1;
+}
+
+.controlButtons {
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.createButton, .cancelButton {
+    font-size: 1rem;
+    border-radius: 0;
+    width: 100%;
+    min-height: 50px;
+    height: 50px;
+    color: var(--negative-text-color);
+}
+
+.createButton {
+    background-color: var(--color-success);
+}
+
+.cancelButton {
+    background-color: var(--color-danger);
+}

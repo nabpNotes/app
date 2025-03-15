@@ -13,6 +13,9 @@ html, body {
     --text-color: #E0E0E0;
     --negative-text-color: #151515;
     --placeholder-color: #252525;
+    --color-danger: #BC2C2E;
+    --color-success: #6CEC45;
+
 }
 
 h1 {

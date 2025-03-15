@@ -2,9 +2,10 @@ import styles from './Home.module.css';
 import React, {useEffect, useState} from "react";
 import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
+import AddGroupDialog from "../components/AddGroupDialog/AddGroupDialog";
 
 import {fetchGroups} from '../services/GroupService';
-import {IonContent, IonFooter, IonHeader, IonPage, useIonRouter} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, IonModal, IonPage, useIonRouter} from "@ionic/react";
 import {validateToken} from "../services/AuthService";
 
 /**
@@ -16,6 +17,8 @@ import {validateToken} from "../services/AuthService";
 const Home: React.FC = (): JSX.Element => {
     const router = useIonRouter();
     const [groups, setGroups] = useState([]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         validateToken().then(r => {
@@ -52,9 +55,18 @@ const Home: React.FC = (): JSX.Element => {
             </IonContent>
             <IonFooter>
                 <div className={styles.addButtonContainer}>
-                    <button className={styles.addButton}>+</button>
+                    <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
+                        Gruppe erstellen
+                    </button>
                 </div>
             </IonFooter>
+
+            <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
+                      breakpoints={[0, 0.5]} initialBreakpoint={0.5}
+                      className={styles.ionModal}>
+                <AddGroupDialog onClose={() => setIsModalOpen(false)}/>
+            </IonModal>
+
         </IonPage>
     );
 };
