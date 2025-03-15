@@ -1,5 +1,4 @@
 import React from 'react';
-import {IonButton, IonContent, IonHeader, IonInput, IonItem, IonTitle, IonToolbar} from '@ionic/react';
 import styles from './AddGroupDialog.module.css';
 
 interface AddGroupDialogProps {
