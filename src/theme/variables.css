@@ -15,6 +15,7 @@ html, body {
     --placeholder-color: #252525;
     --red: #BC2C2E;
     --grey-text: #454545;
+    --nabp-green: #6CEC45;
 }
 
 h1 {
@@ -127,4 +128,31 @@ input:focus {
     min-height: 100%;
     width: 100%;
     padding: 40px 10px 10px 10px;
+}
+
+button.alert-button.confirmDeleteButton {
+    background-color: var(--red);
+    color: var(--negative-text-color);
+}
+
+button.alert-button.cancelDeleteButton {
+    background-color: var(--nabp-green);
+    color: var(--negative-text-color);
+}
+
+/*
+input.alert-input.alertInputField:focus {
+    border-bottom-color: var(--nabp-green);
+    border-radius: 0;
+}
+
+input.alert-input.alertInputField {
+    border-radius: 0;
+}
+*/
+
+ion-input.modal-password-input {
+    --highlight-color-focused: var(--nabp-green);
+    --border-color: var(--nabp-green);
+    --border-radius: 0;
 }

@@ -1,5 +1,10 @@
-<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="25" cy="25" r="25" fill="#6CEC45"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M39.8525 45.1118C46.0086 40.558 50 33.2451 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 33.2451 3.99144 40.558 10.1475 45.1118C10.0503 44.4218 10 43.7168 10 43C10 34.7157 16.7157 28 25 28C33.2843 28 40 34.7157 40 43C40 43.7168 39.9497 44.4218 39.8525 45.1118Z" fill="#252525"/>
-<circle cx="24.5" cy="23.5" r="7.5" fill="#6CEC45"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none" viewBox="0 0 50 50">
+    <mask id="a" width="50" height="50" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha">
+        <circle cx="25" cy="25" r="25" fill="#252525"/>
+    </mask>
+    <g mask="url(#a)">
+        <circle cx="25" cy="25" r="25" fill="#252525"/>
+        <circle cx="24.5" cy="23.5" r="7.5" fill="#6CEC45"/>
+        <circle cx="25" cy="43" r="15" fill="#6CEC45"/>
+    </g>
 </svg>
