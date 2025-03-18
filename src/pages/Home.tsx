@@ -56,15 +56,16 @@ const Home: React.FC = (): JSX.Element => {
             <IonFooter>
                 <div className={styles.addButtonContainer}>
                     <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
-                        Gruppe erstellen
+                        Create Group
                     </button>
                 </div>
             </IonFooter>
 
             <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
-                      breakpoints={[0, 0.5]} initialBreakpoint={0.5}
-                      className={styles.ionModal}>
-                <AddGroupDialog onClose={() => setIsModalOpen(false)}/>
+                      breakpoints={[0, 0.75]} initialBreakpoint={0.75}>
+                <div className={styles.modalContainer}>
+                    <AddGroupDialog onClose={() => setIsModalOpen(false)}/>
+                </div>
             </IonModal>
 
         </IonPage>

@@ -1,8 +1,9 @@
-.background {
-    margin-top: 20px;
+.content {
+    padding-top: 20px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 50%;
+    gap: 10px;
 }
 
 .header {
@@ -10,13 +11,6 @@
     display: flex;
     justify-content: center;
     box-shadow: none;
-}
-
-.content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .inputBox {
@@ -65,11 +59,10 @@
 
 
 .userPicker {
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 35%;
-    max-height: 35%;
 
     overflow-y: scroll;
     flex-grow: 1;
@@ -81,12 +74,11 @@
     justify-content: space-between;
     gap: 10px;
     background-color: var(--background-color);
-    min-height: 50px;
-    padding: 0 10px;
+    padding: 5px;
 }
 
 .userImage {
-    height: 30px;
+    height: 40px;
 }
 
 .userName {
@@ -94,8 +86,6 @@
 }
 
 .controlButtons {
-    position: absolute;
-    bottom: 50%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -104,10 +94,12 @@
 
 .createButton, .cancelButton {
     font-size: 1rem;
+    font-weight: 500;
     border-radius: 0;
     width: 100%;
     min-height: 50px;
     height: 50px;
+
     color: var(--negative-text-color);
 }
 
