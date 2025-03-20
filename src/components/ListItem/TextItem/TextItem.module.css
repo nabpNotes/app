@@ -1,0 +1,4 @@
+.ionItem {
+    --background: var(--background-color);
+    --border-color: transparent;
+}
