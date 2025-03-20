@@ -44,4 +44,30 @@ async function fetchGroup(id: string) {
     }
 }
 
-export { fetchGroups, fetchGroup };
+async function createGroup(createGroupDto: any) {
+    try {
+        const response = await fetch(`${API_URL}/group`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Sending JSON data
+                'Authorization': 'Bearer ' + localStorage.getItem('token'), // Bearer token for authorization
+            },
+            body: JSON.stringify(createGroupDto),  // Sending the group data in the request body
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create group');
+        }
+
+        const data = await response.json();
+        console.log('Group created successfully:', data);
+        return data;  // Return the created group data
+    } catch (error) {
+        console.error('Error creating group:', error);
+        return { error: 'An unexpected error occurred', statusCode: 500 };
+    }
+}
+
+
+
+export { fetchGroups, fetchGroup, createGroup };

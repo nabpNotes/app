@@ -62,10 +62,8 @@ const Home: React.FC = (): JSX.Element => {
             </IonFooter>
 
             <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
-                      breakpoints={[0, 0.75]} initialBreakpoint={0.75}>
-                <div className={styles.modalContainer}>
-                    <AddGroupDialog onClose={() => setIsModalOpen(false)}/>
-                </div>
+                      breakpoints={[0, 1]} initialBreakpoint={1} className={styles.ionModal}>
+                <AddGroupDialog onClose={() => setIsModalOpen(false)}/>
             </IonModal>
 
         </IonPage>
