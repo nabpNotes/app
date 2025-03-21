@@ -5,12 +5,13 @@ import React, {useEffect, useState} from "react";
 import {io, Socket} from "socket.io-client";
 import {useParams} from "react-router";
 import TextItem from "../../components/ListItem/TextItem/TextItem";
+
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 const List: React.FC = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
     const [list, setList] = useState(Object);
-    const [listItems, setListItems] = useState([]);
+    const [listItems, setListItems] = useState<any[]>([]);
     const [socket, setSocket] = useState<Socket>();
 
     useEffect(() => {
@@ -36,6 +37,15 @@ const List: React.FC = (): JSX.Element => {
             setListItems(data);
         });
 
+        socket.on('listItemUpdate', (data) => {
+            console.log(data);
+            setListItems(prevListItems => {
+                return prevListItems.map(item =>
+                    item._id === data._id ? data : item
+                );
+            });
+        })
+
         socket.on('message', (data) => {
             console.log(data);
         });
@@ -48,8 +58,15 @@ const List: React.FC = (): JSX.Element => {
             console.error('Socket.io connection error:', error);
         });
 
+        const handleItemDataUpdated = (event: CustomEvent) => {
+            socket.emit('updateListItem', {listId: id, listItemId: event.detail._id, data: event.detail});
+        };
+
+        window.addEventListener('itemDataUpdated' as any, handleItemDataUpdated as EventListener);
+
         return () => {
             socket.disconnect();
+            window.removeEventListener('itemDataUpdated' as any, handleItemDataUpdated as EventListener);
         };
     }, []);
 

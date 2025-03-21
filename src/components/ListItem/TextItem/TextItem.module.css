@@ -1,4 +1,57 @@
 .ionItem {
     --background: var(--background-color);
     --border-color: transparent;
+    --padding-start: 0;
+}
+
+.textItemContent {
+    width: 100%;
+}
+
+.confirmationButtonsContainer {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
+}
+
+.confirmButton {
+    background-color: var(--card-background-color);
+    padding: 5px;
+}
+
+.cancelButton {
+    background-color: var(--card-background-color);
+    padding: 5px;
+}
+
+.titleEditInput {
+    background-color: var(--background-color);
+    width: 100%;
+    padding: 0;
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.textEditInput {
+    background-color: var(--background-color);
+    width: 100%;
+    padding: 0;
+    border: none;
+    resize: none;
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.textEditInput:focus {
+    outline: none;
 }
