@@ -1,10 +1,21 @@
 import React, {useRef, useState} from "react";
 import styles from  "./Profile.module.css";
-import {IonAlert, IonButton, IonContent, IonFooter, IonHeader, IonInput, IonModal, IonPage} from "@ionic/react";
+import {
+    IonAlert,
+    IonButton,
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonInput,
+    IonModal,
+    IonPage, useIonRouter
+} from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
 
 const Profile: React.FC = (): JSX.Element => {
+
+    const router = useIonRouter();
 
     const [isOpenDeleteAccount, setIsOpenDeleteAccount] = useState(false);
     const [isOpenChangePassword, setIsOpenChangePassword] = useState(false);
@@ -13,11 +24,24 @@ const Profile: React.FC = (): JSX.Element => {
     const [newPassword, setNewPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
 
+    const [isEditing, setIsEditing] = useState(false);
+    const [name, setName] = useState(localStorage.getItem('nickname') || "");
+    const [tempName, setTempName] = useState(name);
+
     const isValid =
         oldPassword.length >= 8 &&
         newPassword.length >= 8 &&
         repeatPassword.length >= 8 &&
         newPassword === repeatPassword;
+
+    const handleLogout = () => {
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userRole");
+        router.push("/login", "root");
+        setTimeout(() => window.location.reload(), 100);
+    }
 
     const modal = useRef<HTMLIonModalElement>(null);
 
@@ -25,6 +49,7 @@ const Profile: React.FC = (): JSX.Element => {
         modal.current?.dismiss();
     }
 
+    // @ts-ignore
     return (
         <IonPage className='background'>
             <IonHeader className='ionHeader'>
@@ -40,25 +65,41 @@ const Profile: React.FC = (): JSX.Element => {
                         <img src={placeholderProfilePic} alt={"profile-pic"} className={styles.profilePic}></img>
                     </div>
                     <div>
-                        <h2>
-                            Rainer
-                        </h2>
+                        <div className={styles.profileNameItem}>
+                            {isEditing ? (
+                                <div className={styles.profileNameWrapper}>
+                                    <input
+                                        className={styles.profileNameInput}
+                                        value={tempName}
+                                        onChange={(e) => setTempName(e.target.value)}
+                                        autoFocus
+                                        onBlur={() => {
+                                            setTempName(name);
+                                            setIsEditing(false);
+                                        }}
+                                    />
+                                    <IonButton
+                                        className={styles.changeButton}
+                                        onMouseDown={() => { setName(tempName); setIsEditing(false); }}
+                                        disabled={tempName.length < 1}
+                                    >
+                                        Save
+                                    </IonButton>
+                                </div>
+                            ) : (
+                                <h2 onClick={() => setIsEditing(true)}>{name}</h2>
+                            )}
+                        </div>
                         <h6 className={styles.greyTextH6}>
-                            Profile Name
+                            Nickname
                         </h6>
                     </div>
                     <div>
                         <h2>
-                            @rainerxoxo
+                            {localStorage.getItem('username')}
                         </h2>
                         <h6 className={styles.greyTextH6}>
                             Username
-                        </h6>
-                    </div>
-                    <div>
-                        <h2>Profile Link</h2>
-                        <h6 className={styles.greyTextH6}>
-                            https://nabp/profile...
                         </h6>
                     </div>
                 </div>
@@ -66,7 +107,12 @@ const Profile: React.FC = (): JSX.Element => {
             <IonFooter>
                 <div className={styles.FooterButtonContainer}>
                     <button className={styles.changePasswordButton}
-                        onClick={() => setIsOpenChangePassword(true)}
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
+                    <button className={styles.changePasswordButton}
+                            onClick={() => setIsOpenChangePassword(true)}
                     >
                         Change Password
                     </button>
@@ -104,66 +150,6 @@ const Profile: React.FC = (): JSX.Element => {
                 onDidDismiss={() => setIsOpenDeleteAccount(false)}
             >
             </IonAlert>
-            {/*
-            <IonAlert
-                isOpen={isOpenChangePassword}
-                onDidDismiss={() => setIsOpenChangePassword(false)}
-                trigger="change-password"
-                header="Change Password"
-                subHeader="This cannot be undone!"
-                buttons={[
-                    {
-                        text: 'Cancel',
-                        role: 'cancel',
-                        cssClass: 'cancelDeleteButton',
-                        handler: () => {
-                            console.log("Change password canceled");
-                        }
-                    },
-                    {
-                        text: "Change",
-                        role: 'Change',
-                        htmlAttributes: {
-                            disabled: !isValid
-                        },
-                        cssClass: 'confirmDeleteButton',
-                        handler: () => {
-                            console.log("Change password confirmed")
-                        }
-                    }
-                ]}
-                inputs={[
-                    {
-                        placeholder: 'old password',
-                        type: 'password',
-                        cssClass: 'alertInputField',
-                        handler: (e: any) => setOldPassword(e.detail.value),
-                        attributes: {
-                            minlength: 8
-                        }
-                    },
-                    {
-                        placeholder: 'new password',
-                        type: 'password',
-                        cssClass: 'alertInputField',
-                        handler: (e: any) => setNewPassword(e.detail.value),
-                        attributes: {
-                            minlength: 8
-                        }
-                    },
-                    {
-                        placeholder: 'repeat new password',
-                        type: 'password',
-                        cssClass: 'alertInputField',
-                        handler: (e: any) => setRepeatPassword(e.detail.value),
-                        attributes: {
-                            minlength: 8
-                        }
-                    },
-                ]}
-            >
-            </IonAlert>
-            */}
             <IonModal
                 id="change-password-modal"
                 isOpen={isOpenChangePassword}
