@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styles from './AddGroupDialog.module.css';
 import { createGroup } from "../../services/GroupService";
 
-import defaultProfilePicture from "../../assets/profilePics/Rheiner Zufall.png"
+import addedIcon from "../../assets/icons/addedIcon.svg"
+import addIcon from "../../assets/icons/addIcon.svg"
 
-// User interface
+import {fetchUsers} from "../../services/UserService";
+
+
+// Interface for user data
 interface User {
     userId: string;
     name: string;
@@ -12,38 +16,27 @@ interface User {
     added: boolean;
 }
 
+// Props interface for AddGroupDialog component
 interface AddGroupDialogProps {
     onClose: () => void;
+    setToastMessage: (message: string) => void;
+    setShowToast: (show: boolean) => void;
 }
 
-const fetchUsers = async (): Promise<User[]> => {
-    const API_URL = import.meta.env.VITE_API_URL as string;
-    try {
-        const response = await fetch(`${API_URL}/user`, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-            },
-        });
-        const data = await response.json();
-        return data.map((user: any) => ({
-            userId: user._id,
-            name: user.username,
-            profileImage: user.profilePictureExt || defaultProfilePicture,
-            added: false,
-        }));
-    } catch (error) {
-        console.error('Fehler beim Abrufen der Benutzer:', error);
-        return [];
-    }
-};
-
-const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose }) => {
+/**
+ * AddGroupDialog component
+ * @param {function} onClose - Callback function to close the modal
+ * @param {function} setToastMessage - Function to set the toast message (success or error)
+ * @param {function} setShowToast - Function to show or hide the toast notification
+ * @returns {JSX.Element} - The add group dialog modal
+ * This component allows users to create a new group by providing a group name and selecting users to add.
+ */
+const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose, setToastMessage, setShowToast }) => {
     const [users, setUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [groupName, setGroupName] = useState(""); // To capture the group name
-    const [loading, setLoading] = useState(true);  // Ladezustand
-    const [error, setError] = useState<string | null>(null);  // Fehlerzustand
+    const [groupName, setGroupName] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const loadUsers = async () => {
@@ -72,36 +65,52 @@ const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose }) => {
         user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const callCreateGroup = () => {
+    // Handle group creation and notify with toast
+    const handleCreateGroup = async () => {
         const userId = localStorage.getItem('userId');
         if (!userId) return;
 
+        // Create group admin object
         const me = {
             userId,
             role: 'groupadmin',
             joinedAt: Date.now(),
         };
 
+        // Create members array (including the admin and selected users)
         let members = users
-            .filter(user => user.added)
+            .filter(user => user.added) // Only users that are added
             .map(user => ({
                 userId: user.userId,
                 role: 'user',
                 joinedAt: Date.now(),
             }));
 
-        members.unshift(me);
+        members.unshift(me); // Add admin as the first member
 
+        // Group creation payload
         const createGroupDto = {
             name: groupName || 'My New Group',
             members,
-            lists: [],
+            lists: [], // Assuming you want to manage lists later
             createdAt: Date.now()
         };
 
-        createGroup(createGroupDto).then(r => {
-            console.log(r.data); //TODO Hier new group created alert
-        })
+        try {
+            // Create the group by calling the service function
+            const response = await createGroup(createGroupDto);
+
+            // Set success message and show toast
+            setToastMessage(response.message);
+            setShowToast(true);
+        } catch (error) {
+            // Handle error by setting the message and showing toast
+            setToastMessage("Ein Fehler ist aufgetreten!");
+            setShowToast(true);
+        }
+
+        // Close the dialog after attempting to create the group
+        onClose();
     };
 
     return (
@@ -141,14 +150,18 @@ const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose }) => {
                         <div key={user.userId} className={styles.userItem} onClick={() => toggleUser(user.userId)}>
                             <img src={user.profileImage} alt={user.name} className={styles.userImage} />
                             <p className={styles.userName}>{user.name}</p>
-                            <span>{user.added ? '✓' : '+'}</span>
+                            {user.added ?
+                                <img src={addedIcon} alt="✓" className={styles.addUserIcon} />
+                                :
+                                <img src={addIcon} alt="+" className={styles.addUserIcon} />
+                            }
                         </div>
                     ))}
                 </div>
             )}
 
             <div className={styles.controlButtons}>
-                <button className={styles.createButton} onClick={callCreateGroup}>
+                <button className={styles.createButton} onClick={handleCreateGroup}>
                     CREATE GROUP
                 </button>
                 <button className={styles.cancelButton} onClick={onClose}>

@@ -5,7 +5,7 @@ import GroupListItem from '../components/GroupListItem/GroupListItem';
 import AddGroupDialog from "../components/AddGroupDialog/AddGroupDialog";
 
 import {fetchGroups} from '../services/GroupService';
-import {IonContent, IonFooter, IonHeader, IonModal, IonPage, useIonRouter} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, IonModal, IonPage, IonToast, useIonRouter} from "@ionic/react";
 import {validateToken} from "../services/AuthService";
 
 /**
@@ -19,6 +19,9 @@ const Home: React.FC = (): JSX.Element => {
     const [groups, setGroups] = useState([]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [toastMessage, setToastMessage] = useState("");
+    const [showToast, setShowToast] = useState(false);
 
     useEffect(() => {
         validateToken().then(r => {
@@ -63,9 +66,18 @@ const Home: React.FC = (): JSX.Element => {
 
             <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
                       breakpoints={[0, 1]} initialBreakpoint={1} className={styles.ionModal}>
-                <AddGroupDialog onClose={() => setIsModalOpen(false)}/>
+                <AddGroupDialog onClose={() => setIsModalOpen(false)}
+                                setToastMessage={setToastMessage}
+                                setShowToast={setShowToast}/>
             </IonModal>
-
+            <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => {
+                    setShowToast(false);
+                }}
+                message={toastMessage}
+                duration={2000}
+            />
         </IonPage>
     );
 };
