@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from './AddGroupDialog.module.css';
-import { IonContent } from "@ionic/react";
 import { createGroup } from "../../services/GroupService";
 
 import defaultProfilePicture from "../../assets/profilePics/Rheiner Zufall.png"
@@ -60,9 +59,14 @@ const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose }) => {
         loadUsers();
     }, []);
 
-    const toggleUser = (index: number) => {
-        setUsers(prevUsers => prevUsers.map((user, i) => i === index ? { ...user, added: !user.added } : user));
+    const toggleUser = (userId: string) => {
+        setUsers(prevUsers =>
+            prevUsers.map(user =>
+                user.userId === userId ? { ...user, added: !user.added } : user
+            )
+        );
     };
+
 
     const filteredUsers = users.filter(user =>
         user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -101,59 +105,57 @@ const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose }) => {
     };
 
     return (
-        <IonContent>
-            <div className={styles.content}>
-                <div className={styles.header}>
-                    <p>Create Group</p>
-                </div>
-
-                {/* Error Message */}
-                {error && <div className={styles.errorMessage}>{error}</div>}
-
-                <div className={styles.inputBox}>
-                    <input
-                        className={styles.input}
-                        placeholder="Group Name"
-                        value={groupName}
-                        onChange={(e) => setGroupName(e.target.value)}
-                    />
-                    <span className={styles.inputLabel}>Group Name</span>
-                </div>
-                <div className={styles.inputBox}>
-                    <input
-                        className={styles.input}
-                        placeholder="Search User"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <span className={styles.inputLabel}>Search User</span>
-                </div>
-
-                {/* Ladeanzeige */}
-                {loading ? (
-                    <div className={styles.loading}>Loading users...</div>
-                ) : (
-                    <div className={styles.userPicker}>
-                        {filteredUsers.map((user, index) => (
-                            <div key={user.userId} className={styles.userItem} onClick={() => toggleUser(index)}>
-                                <img src={user.profileImage} alt={user.name} className={styles.userImage} />
-                                <p className={styles.userName}>{user.name}</p>
-                                <span>{user.added ? '✓' : '+'}</span>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                <div className={styles.controlButtons}>
-                    <button className={styles.createButton} onClick={callCreateGroup}>
-                        CREATE GROUP
-                    </button>
-                    <button className={styles.cancelButton} onClick={onClose}>
-                        CANCEL
-                    </button>
-                </div>
+        <div className={styles.contentBox}>
+            <div className={styles.header}>
+                <p>Create Group</p>
             </div>
-        </IonContent>
+
+            {/* Error Message */}
+            {error && <div className={styles.errorMessage}>{error}</div>}
+
+            <div className={styles.inputBox}>
+                <input
+                    className={styles.input}
+                    placeholder="Group Name"
+                    value={groupName}
+                    onChange={(e) => setGroupName(e.target.value)}
+                />
+                <span className={styles.inputLabel}>Group Name</span>
+            </div>
+            <div className={styles.inputBox}>
+                <input
+                    className={styles.input}
+                    placeholder="Search User"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <span className={styles.inputLabel}>Search User</span>
+            </div>
+
+            {/* Ladeanzeige */}
+            {loading ? (
+                <div className={styles.loading}>Loading users...</div>
+            ) : (
+                <div className={styles.userPicker}>
+                    {filteredUsers.map((user) => (
+                        <div key={user.userId} className={styles.userItem} onClick={() => toggleUser(user.userId)}>
+                            <img src={user.profileImage} alt={user.name} className={styles.userImage} />
+                            <p className={styles.userName}>{user.name}</p>
+                            <span>{user.added ? '✓' : '+'}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            <div className={styles.controlButtons}>
+                <button className={styles.createButton} onClick={callCreateGroup}>
+                    CREATE GROUP
+                </button>
+                <button className={styles.cancelButton} onClick={onClose}>
+                    CANCEL
+                </button>
+            </div>
+        </div>
     );
 };
 
