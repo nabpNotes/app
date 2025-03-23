@@ -1,14 +1,16 @@
 import styles from './List.module.css';
-import {IonContent, IonFooter, IonHeader, IonPage} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, IonPage, useIonRouter} from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import React, {useEffect, useState} from "react";
 import {io, Socket} from "socket.io-client";
 import {useParams} from "react-router";
 import TextItem from "../../components/ListItem/TextItem/TextItem";
+import {updateListItem} from "../../services/ListItemService";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 const List: React.FC = (): JSX.Element => {
+    const router = useIonRouter();
     const { id } = useParams<{ id: string }>();
     const [list, setList] = useState(Object);
     const [listItems, setListItems] = useState<any[]>([]);
@@ -38,7 +40,7 @@ const List: React.FC = (): JSX.Element => {
         });
 
         socket.on('listItemUpdate', (data) => {
-            console.log(data);
+            console.log('update listItem' + JSON.stringify(data));
             setListItems(prevListItems => {
                 return prevListItems.map(item =>
                     item._id === data._id ? data : item
@@ -46,20 +48,23 @@ const List: React.FC = (): JSX.Element => {
             });
         })
 
-        socket.on('message', (data) => {
-            console.log(data);
-        });
-
         socket.on('disconnect', () => {
             console.log('Socket.io connection closed');
+            router.goBack();
         });
 
         socket.on('connect_error', (error) => {
             console.error('Socket.io connection error:', error);
+            router.goBack();
         });
 
         const handleItemDataUpdated = (event: CustomEvent) => {
-            socket.emit('updateListItem', {listId: id, listItemId: event.detail._id, data: event.detail});
+            let requestData = event.detail;
+            requestData.listId = id;
+            updateListItem(event.detail._id, event.detail).then().catch(e => {
+                console.error(e);
+                refreshListItems();
+            });
         };
 
         window.addEventListener('itemDataUpdated' as any, handleItemDataUpdated as EventListener);
@@ -76,6 +81,12 @@ const List: React.FC = (): JSX.Element => {
             socket.emit('getListItems', {listId: id});
         }
     }, [list]);
+
+    const refreshListItems = () => {
+        if (socket) {
+            socket.emit('getListItems', {listId: id});
+        }
+    }
 
     return (
         <IonPage className='background'>

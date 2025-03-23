@@ -24,6 +24,11 @@
     padding: 5px;
 }
 
+.confirmationButtonIcons {
+    width: 30px;
+    float: left;
+}
+
 .titleEditInput {
     background-color: var(--background-color);
     width: 100%;
