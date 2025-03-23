@@ -4,6 +4,7 @@ import {useIonRouter} from "@ionic/react";
 
 import nabpIcon from '../../assets/icons/nabp.svg';
 import backIcon from '../../assets/icons/back.svg';
+import navigationIcon from '../../assets/icons/menu.svg';
 
 interface ToolbarProps {
     searchable: boolean;
@@ -32,24 +33,25 @@ const Toolbar: React.FC<ToolbarProps> = ({ searchable, pageTitle, backButton }: 
     }
 
     return (
-        <div className="toolbarContainer">
-            <div className="toolbarIconContainer">
-                {backButton ? <img className="toolbarBackIcon" src={backIcon} alt="back-icon" onClick={navigateBack}/>
-                    : <img className="toolbarNabpIcon" src={nabpIcon} alt="menu-icon"/>
-                }
+        <>
+            <div className="toolbarContainer">
+                <div className="toolbarIconContainer">
+                    {backButton ? (
+                        <img className="toolbarBackIcon" src={backIcon} alt="back-icon" onClick={navigateBack} />
+                    ) : (
+                        <img className="toolbarNabpIcon" src={nabpIcon} alt="menu-icon" />
+                    )}
+                    <img src={navigationIcon} alt="menu-icon"/>
+                </div>
+                <div className="toolbarSearchInputContainer">
+                    {searchable ? (
+                        <input className="toolbarSearchInput" type="text" placeholder="Search" />
+                    ) : (
+                        <h1>{pageTitle}</h1>
+                    )}
+                </div>
             </div>
-            <div>
-                <p style={{
-                    textAlign: "right",                 //TODO kann ganz ersetzt werden
-                    color: "white",
-                }}>Placeholder für navigator</p>
-            </div>
-            <div className="toolbarSearchInputContainer">
-                {searchable ? <input className="toolbarSearchInput" type="text" placeholder="Search"/>
-                    : <h1>{pageTitle}</h1>
-                }
-            </div>
-        </div>
+        </>
     );
 }
 
