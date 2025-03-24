@@ -30,4 +30,31 @@ const updateNickname = async (nickname: string) => {
     }
 }
 
-export { updateNickname };
+/**
+ * This function sends a DELETE Request to the api to delete a user
+ */
+const deleteAccount = async () => {
+    try {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            return { error: "User not authenticated", statusCode: 401 };
+        }
+
+        const response = await fetch(`${API_URL}/user`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+        const updatedUser = await response.json();
+        console.log(updatedUser);
+        return updatedUser;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
+export { updateNickname, deleteAccount };

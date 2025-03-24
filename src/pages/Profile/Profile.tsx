@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
-import {updateNickname} from "../../services/UserService";
+import {updateNickname, deleteAccount} from "../../services/UserService";
 
 const Profile: React.FC = (): JSX.Element => {
 
@@ -51,9 +51,19 @@ const Profile: React.FC = (): JSX.Element => {
                 setName(tempName);
                 setTempName(tempName);
                 setIsEditing(false);
+                localStorage.setItem('nickname', tempName);
             } else {
                 console.error("Failed to update nickname:", response.error);
             }
+        }
+    }
+
+    const handleDeleteAccount = async () => {
+        const response = await deleteAccount();
+        if (!response.error) {
+            handleLogout();
+        } else {
+            console.error("Failed to delete account:", response.error);
         }
     }
 
@@ -156,7 +166,7 @@ const Profile: React.FC = (): JSX.Element => {
                         role: 'delete',
                         cssClass: 'confirmDeleteButton',
                         handler: () => {
-                            console.log("Delete Action confirmed")
+                            handleDeleteAccount().then(r => console.log("Delete Action confirmed"))
                         }
                     }
 
