@@ -12,6 +12,7 @@ import {
 } from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
+import {updateNickname} from "../../services/UserService";
 
 const Profile: React.FC = (): JSX.Element => {
 
@@ -41,6 +42,19 @@ const Profile: React.FC = (): JSX.Element => {
         localStorage.removeItem("userRole");
         router.push("/login", "root");
         setTimeout(() => window.location.reload(), 100);
+    }
+
+    const handleUpdateNickname = async () => {
+        if (!(tempName === name)) {
+            const response = await updateNickname(tempName);
+            if (!response.error) {
+                setName(tempName);
+                setTempName(tempName);
+                setIsEditing(false);
+            } else {
+                console.error("Failed to update nickname:", response.error);
+            }
+        }
     }
 
     const modal = useRef<HTMLIonModalElement>(null);
@@ -80,7 +94,7 @@ const Profile: React.FC = (): JSX.Element => {
                                     />
                                     <IonButton
                                         className={styles.changeButton}
-                                        onMouseDown={() => { setName(tempName); setIsEditing(false); }}
+                                        onMouseDown={handleUpdateNickname}
                                         disabled={tempName.length < 1}
                                     >
                                         Save
