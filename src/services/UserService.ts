@@ -1,3 +1,6 @@
+import {hashPassword} from "./AuthService";
+import * as string_decoder from "node:string_decoder";
+
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 /**
@@ -57,4 +60,35 @@ const deleteAccount = async () => {
     }
 }
 
-export { updateNickname, deleteAccount };
+/**
+ * This function sends a PATCH request to the api for updating the password
+ * @param password the new password
+ */
+const updatePassword = async (password: string) => {
+    try {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            return { error: "User not authenticated", statusCode: 401 };
+        }
+
+        password = hashPassword(password);
+
+        const response = await fetch(`${API_URL}/user/password`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ password }),
+        });
+        const updatedUser = await response.json();
+        console.log(updatedUser);
+        return updatedUser;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
+export { updateNickname, deleteAccount, updatePassword };

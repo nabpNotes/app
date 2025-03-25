@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
-import {updateNickname, deleteAccount} from "../../services/UserService";
+import {updateNickname, deleteAccount, updatePassword} from "../../services/UserService";
 
 const Profile: React.FC = (): JSX.Element => {
 
@@ -64,6 +64,21 @@ const Profile: React.FC = (): JSX.Element => {
             handleLogout();
         } else {
             console.error("Failed to delete account:", response.error);
+        }
+    }
+
+    const handleUpdatePassword = async () => {
+        if (!newPassword) {
+            console.error("Please enter new password.");
+            return;
+        }
+
+        const response = await updatePassword(newPassword);
+        if (!response.error) {
+            console.log("Password changed successfully!");
+            setIsOpenChangePassword(false);
+        } else {
+            console.error("Failed to change password:", response.error);
         }
     }
 
@@ -206,6 +221,9 @@ const Profile: React.FC = (): JSX.Element => {
                                 onClick={() => {
                                     console.log("change password confirmed");
                                     setIsOpenChangePassword(false);
+                                    handleUpdatePassword().then(() => {
+                                        setIsOpenChangePassword(false);
+                                    })
                                 }}
                                 disabled={!isValid}
                             >
