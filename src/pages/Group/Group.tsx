@@ -51,13 +51,17 @@ const Group: React.FC = (): JSX.Element => {
                     toggleMenu={toggleMenu}
                 />
             </IonHeader>
-            <IonMenu className={styles.ionMenu} side="end" contentId="groupMenu" menuId="groupMenu">
-                <IonContent  className={styles.ionMenuContent}>
-                    <div className={styles.ionMenuContentBox}>
-                        <button>Profile Settings</button>
-                        <button>Group Settings</button>
-                        <button>T</button>
-                        <button>C</button>
+            <IonMenu className="ionMenu" side="end" contentId="groupMenu" menuId="groupMenu">
+                <IonContent className="ionMenuContent">
+                    <div className="verticalFlexbox">
+                        <div className="profileSettingsBtn">
+                            <img src="src/assets/icons/exampleProfilePicture.svg" alt="profilepic"/>
+                            <h4>Profile Settings</h4>
+                        </div>
+                        <div className="groupSettingsBtn">
+                            <h4>{group.name}</h4>
+                            <h4>Group Settings</h4>
+                        </div>
                     </div>
                 </IonContent>
             </IonMenu>

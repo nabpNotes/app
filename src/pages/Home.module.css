@@ -25,18 +25,3 @@
     --backdrop-opacity: 50%;
     --height: 60%;
 }
-
-.ionMenu {
-    --width: 80%;
-}
-
-.ionMenuContent {
-    --background: var(--background-color);
-}
-
-.ionMenuContentBox {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-}

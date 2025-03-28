@@ -59,13 +59,13 @@ const Home: React.FC = (): JSX.Element => {
                     toggleMenu={toggleMenu}
                 />
             </IonHeader>
-            <IonMenu className={styles.ionMenu} side="end" contentId="homeMenu" menuId="homeMenu">
-                <IonContent  className={styles.ionMenuContent}>
-                    <div className={styles.ionMenuContentBox}>
-                        <button>Profile Settings</button>
-                        <button>E</button>
-                        <button>T</button>
-                        <button>C</button>
+            <IonMenu className="ionMenu" side="end" contentId="homeMenu" menuId="homeMenu">
+                <IonContent className="ionMenuContent">
+                    <div className="verticalFlexbox">
+                        <div className="profileSettingsBtn">
+                            <img src="src/assets/icons/exampleProfilePicture.svg" alt="profilepic"/>
+                            <h4>Profile Settings</h4>
+                        </div>
                     </div>
                 </IonContent>
             </IonMenu>

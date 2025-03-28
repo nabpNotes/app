@@ -1,4 +1,4 @@
-import './Toolbar.css';
+import styles from './Toolbar.module.css';
 import React, {useState} from "react";
 
 import nabpIcon from '../../assets/icons/nabp.svg';
@@ -18,6 +18,7 @@ interface ToolbarProps {
  * @param {boolean} searchable - boolean to determine if search input should be displayed
  * @param {string} pageTitle - string to display as page title
  * @param {boolean} backButton - boolean to determine if back button should be displayed
+ * @param toggleMenu
  * @returns {JSX.Element}
  * This component is used to display the toolbar at the top of the page.
  * the toolbar should be used in every page with various states.
@@ -35,18 +36,18 @@ const Toolbar: React.FC<ToolbarProps> = ({ searchable, pageTitle, backButton, to
 
     return (
         <>
-            <div className="toolbarContainer">
-                <div className="toolbarIconContainer">
+            <div className={styles.toolbarContainer}>
+                <div className={styles.toolbarIconContainer}>
                     {backButton ? (
-                        <img className="toolbarBackIcon" src={backIcon} alt="back-icon" onClick={navigateBack} />
+                        <img className={styles.toolbarBackIcon} src={backIcon} alt="back-icon" onClick={navigateBack} />
                     ) : (
-                        <img className="toolbarNabpIcon" src={nabpIcon} alt="menu-icon"  />
+                        <img className={styles.toolbarNabpIcon} src={nabpIcon} alt="menu-icon"  />
                     )}
                     <img src={navigationIcon} alt="menu-icon" onClick={toggleMenu}/>
                 </div>
-                <div className="toolbarSearchInputContainer">
+                <div className={styles.toolbarSearchInputContainer}>
                     {searchable ? (
-                        <input className="toolbarSearchInput" type="text" placeholder="Search" />
+                        <input className={styles.toolbarSearchInput} type="text" placeholder="Search" />
                     ) : (
                         <h1>{pageTitle}</h1>
                     )}

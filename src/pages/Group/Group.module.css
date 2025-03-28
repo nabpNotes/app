@@ -20,14 +20,6 @@
     font-size: 2rem;
 }
 
-.ionMenu {
-    --width: 80%;
-}
-
-.ionMenuContent {
-    --background: var(--background-color);
-}
-
 .ionMenuContentBox {
     display: flex;
     flex-direction: column;
