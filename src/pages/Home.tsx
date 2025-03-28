@@ -3,9 +3,19 @@ import React, {useEffect, useState} from "react";
 import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
 import AddGroupDialog from "../components/AddGroupDialog/AddGroupDialog";
+import { menuController } from '@ionic/core/components';
 
 import {fetchGroups} from '../services/GroupService';
-import {IonContent, IonFooter, IonHeader, IonModal, IonPage, IonToast, useIonRouter} from "@ionic/react";
+import {
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonMenu,
+    IonModal,
+    IonPage,
+    IonToast,
+    useIonRouter
+} from "@ionic/react";
 import {validateToken} from "../services/AuthService";
 
 /**
@@ -35,15 +45,30 @@ const Home: React.FC = (): JSX.Element => {
         });
     }, []);
 
+    async function toggleMenu() {
+        await menuController.open('homeMenu');
+    }
+
     return (
-        <IonPage className='background'>
+        <IonPage id="homeMenu" className="background">
             <IonHeader className='ionHeader'>
                 <Toolbar
                     searchable={true}
                     pageTitle={"WG Uni 🏚️"}
                     backButton={false}
+                    toggleMenu={toggleMenu}
                 />
             </IonHeader>
+            <IonMenu className={styles.ionMenu} side="end" contentId="homeMenu" menuId="homeMenu">
+                <IonContent  className={styles.ionMenuContent}>
+                    <div className={styles.ionMenuContentBox}>
+                        <button>Profile Settings</button>
+                        <button>E</button>
+                        <button>T</button>
+                        <button>C</button>
+                    </div>
+                </IonContent>
+            </IonMenu>
             <IonContent className="ionContent">
                 <div className={styles.groupList}>
                     {groups.map((group: any) => (
