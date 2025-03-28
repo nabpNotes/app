@@ -1,12 +1,13 @@
 import styles from './Group.module.css';
 import React, {useEffect, useState} from "react";
-import {IonContent, IonFooter, IonHeader, IonPage, useIonRouter} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, IonModal, IonPage, IonToast, useIonRouter} from "@ionic/react";
 import {validateToken} from "../../services/AuthService";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import GroupListItem from "../../components/GroupListItem/GroupListItem";
 import {fetchGroup} from "../../services/GroupService";
 import {useParams} from "react-router";
 import {fetchListsByGroup} from "../../services/ListService";
+import AddListDialog from "../../components/AddListDialog/AddListDialog";
 
 /**
  * Group page
@@ -19,6 +20,12 @@ const Group: React.FC = (): JSX.Element => {
     const { id } = useParams<{ id: string }>();
     const [group, setGroup] = useState(Object);
     const [lists, setLists] = useState([]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [toastMessage, setToastMessage] = useState("");
+    const [showToast, setShowToast] = useState(false);
+
 
     useEffect(() => {
         validateToken().then(r => {
@@ -57,11 +64,30 @@ const Group: React.FC = (): JSX.Element => {
                     ))}
                 </div>
             </IonContent>
+
             <IonFooter>
                 <div className={styles.addButtonContainer}>
-                    <button className={styles.addButton}>+</button>
+                    <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
+                        Add List
+                    </button>
                 </div>
             </IonFooter>
+
+            <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
+                      breakpoints={[0, 1]} initialBreakpoint={1} className={styles.ionModal}>
+                <AddListDialog onClose={() => setIsModalOpen(false)}
+                                setToastMessage={setToastMessage}
+                                setShowToast={setShowToast}
+                                groupId={id}/>
+            </IonModal>
+            <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => {
+                    setShowToast(false);
+                }}
+                message={toastMessage}
+                duration={2000}
+            />
         </IonPage>
     );
 };
