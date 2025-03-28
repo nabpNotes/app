@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './AddListDialog.module.css';
 import {createList} from "../../services/ListService";
 
@@ -19,7 +19,6 @@ interface AddListDialogProps {
  */
 const AddListDialog: React.FC<AddListDialogProps> = ({ onClose, setToastMessage, setShowToast, groupId }) => {
     const [listName, setListName] = useState("");
-
 
     const handleCreateList = async () => {
         const createListDto = {
@@ -58,7 +57,7 @@ const AddListDialog: React.FC<AddListDialogProps> = ({ onClose, setToastMessage,
 
             <div className={styles.controlButtons}>
                 <button className={styles.createButton} onClick={handleCreateList}>
-                    CREATE GROUP
+                    ADD LIST
                 </button>
                 <button className={styles.cancelButton} onClick={onClose}>
                     CANCEL
