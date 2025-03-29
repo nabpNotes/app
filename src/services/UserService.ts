@@ -63,8 +63,9 @@ const deleteAccount = async () => {
 /**
  * This function sends a PATCH request to the api for updating the password
  * @param password the new password
+ * @param oldPassword the user's old password
  */
-const updatePassword = async (password: string) => {
+const updatePassword = async (password: string, oldPassword: string) => {
     try {
         const token = localStorage.getItem('token');
 
@@ -73,6 +74,7 @@ const updatePassword = async (password: string) => {
         }
 
         password = hashPassword(password);
+        oldPassword = hashPassword(oldPassword);
 
         const response = await fetch(`${API_URL}/user/password`, {
             method: 'PATCH',
@@ -80,7 +82,7 @@ const updatePassword = async (password: string) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ password }),
+            body: JSON.stringify({ password, oldPassword }),
         });
         const updatedUser = await response.json();
         console.log(updatedUser);

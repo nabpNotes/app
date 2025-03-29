@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from  "./Profile.module.css";
 import {
     IonAlert,
@@ -8,7 +8,9 @@ import {
     IonHeader,
     IonInput,
     IonModal,
-    IonPage, useIonRouter
+    IonPage,
+    IonToast,
+    useIonRouter
 } from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
@@ -29,11 +31,19 @@ const Profile: React.FC = (): JSX.Element => {
     const [name, setName] = useState(localStorage.getItem('nickname') || "");
     const [tempName, setTempName] = useState(name);
 
-    const isValid =
-        oldPassword.length >= 8 &&
-        newPassword.length >= 8 &&
-        repeatPassword.length >= 8 &&
-        newPassword === repeatPassword;
+    const [showToast, setShowToast] = useState(false);
+    const [passwordChanged, setPasswordChanged] = useState(false);
+
+    const [isValid, setIsValid] = useState(false);
+
+    useEffect(() => {
+        setIsValid(
+            oldPassword.length >= 8 &&
+            newPassword.length >= 8 &&
+            repeatPassword.length >= 8 &&
+            newPassword === repeatPassword
+        );
+    }, [oldPassword, newPassword, repeatPassword]);
 
     const handleLogout = () => {
         localStorage.removeItem("nickname");
@@ -73,13 +83,17 @@ const Profile: React.FC = (): JSX.Element => {
             return;
         }
 
-        const response = await updatePassword(newPassword);
+        const response = await updatePassword(newPassword, oldPassword);
         if (!response.error) {
             console.log("Password changed successfully!");
             setIsOpenChangePassword(false);
+            setPasswordChanged(true);
         } else {
             console.error("Failed to change password:", response.error);
+            setPasswordChanged(false);
         }
+
+        setShowToast(true);
     }
 
     const modal = useRef<HTMLIonModalElement>(null);
@@ -242,6 +256,15 @@ const Profile: React.FC = (): JSX.Element => {
                     </div>
                 </IonContent>
             </IonModal>
+            <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => {
+                    setShowToast(false);
+                }}
+                message={"Changing Password " + (passwordChanged ? "successful" : "failed")}
+                duration={2000}
+            >
+            </IonToast>
         </IonPage>
     );
 }
