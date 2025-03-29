@@ -1,6 +1,6 @@
 import styles from './Group.module.css';
 import React, {useEffect, useState} from "react";
-import {IonContent, IonFooter, IonHeader, IonModal, IonPage, IonToast, useIonRouter} from "@ionic/react";
+import {IonContent, IonFooter, IonHeader, IonMenu, IonModal, IonPage, IonToast, useIonRouter} from "@ionic/react";
 import {validateToken} from "../../services/AuthService";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import GroupListItem from "../../components/GroupListItem/GroupListItem";
@@ -8,6 +8,7 @@ import {fetchGroup} from "../../services/GroupService";
 import {useParams} from "react-router";
 import {fetchListsByGroup} from "../../services/ListService";
 import AddListDialog from "../../components/AddListDialog/AddListDialog";
+import {menuController} from "@ionic/core/components";
 
 
 /**
