@@ -130,3 +130,37 @@ input:focus {
     width: 100%;
     padding: 40px 10px 50px 10px;
 }
+
+.ionMenu {
+    --width: 80%;
+}
+
+.ionMenuContent {
+    --padding-top: 40px;
+    --background: var(--background-color);
+}
+
+.verticalFlexbox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.profileSettingsBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--card-background-color);
+}
+
+.groupSettingsBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--card-background-color);
+}
