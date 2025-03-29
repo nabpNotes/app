@@ -23,5 +23,5 @@
 
 .ionModal {
     --backdrop-opacity: 50%;
-    --height: 60%;
+    --max-height: 60%;
 }
