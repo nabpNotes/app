@@ -13,6 +13,11 @@ interface TextItemProps {
     };
 }
 
+/**
+ * This component renders a text item with edit and delete options.
+ * @param {TextItemProps} props - The props for the component.
+ * @returns {JSX.Element} - The rendered component.
+ */
 const TextItem: React.FC<TextItemProps> = ({itemData}: TextItemProps): JSX.Element => {
     const [itemDataState, setItemDataState] = useState(itemData);
     const [itemDataCopy, setItemDataCopy] = useState(itemData);

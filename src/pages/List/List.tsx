@@ -9,6 +9,10 @@ import {updateListItem} from "../../services/ListItemService";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
+/**
+ * This component renders a list of items.
+ * @returns {JSX.Element} - The rendered component.
+ */
 const List: React.FC = (): JSX.Element => {
     const router = useIonRouter();
     const { id } = useParams<{ id: string }>();
