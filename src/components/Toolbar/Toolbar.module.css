@@ -1,13 +1,13 @@
 .toolbarContainer {
     width: 100%;
-    display: grid;
-    row-gap: 15px;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .toolbarIconContainer {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
 }
 
