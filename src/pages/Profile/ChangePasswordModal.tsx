@@ -88,6 +88,11 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose, onChange }) => 
                         </IonButton>
                     </div>
                 </div>
+                <div className={styles.errorMessageLabelWrapper}>
+                    <label className={styles.errorMessageLabel}>
+                        {isValid ? "" : "provided password do not match requirements"}
+                    </label>
+                </div>
             </IonContent>
         </IonModal>
     );

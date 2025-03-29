@@ -97,78 +97,80 @@ const Profile: React.FC = (): JSX.Element => {
 
     // @ts-ignore
     return (
-        <IonPage className='background'>
-            <IonHeader className='ionHeader'>
-                <Toolbar
-                    searchable={false}
-                    pageTitle={"Profile Settings"}
-                    backButton={true}
-                />
-            </IonHeader>
+        <IonPage className={styles.background}>
+            <div className={styles.headerWrapper}>
+                <IonHeader className='ionHeader'>
+                    <Toolbar
+                        searchable={false}
+                        pageTitle={"Profile Settings"}
+                        backButton={true}
+                    />
+                </IonHeader>
+            </div>
             <IonContent className='ionContent'>
-                <div className={styles.profileContent}>
-                    <div>
-                        <img src={placeholderProfilePic} alt={"profile-pic"} className={styles.profilePic}></img>
-                    </div>
-                    <div>
-                        <div className={styles.profileNameItem}>
-                            {isEditing ? (
-                                <div className={styles.profileNameWrapper}>
-                                    <input
-                                        className={styles.profileNameInput}
-                                        value={tempName}
-                                        onChange={(e) => setTempName(e.target.value)}
-                                        autoFocus
-                                        onBlur={() => {
-                                            setTempName(name);
-                                            setIsEditing(false);
-                                        }}
-                                    />
-                                    <IonButton
-                                        className={styles.changeButton}
-                                        onMouseDown={handleUpdateNickname}
-                                        disabled={tempName.length < 1}
-                                    >
-                                        Save
-                                    </IonButton>
-                                </div>
-                            ) : (
-                                <h2 onClick={() => setIsEditing(true)}>{name}</h2>
-                            )}
+                <div className={styles.contentWrapper}>
+                    <div className={styles.profileContent}>
+                        <div>
+                            <img src={placeholderProfilePic} alt={"profile-pic"} className={styles.profilePic}></img>
                         </div>
-                        <h6 className={styles.greyTextH6}>
-                            Nickname
-                        </h6>
+                        <div>
+                            <div className={styles.profileNameItem}>
+                                {isEditing ? (
+                                    <div className={styles.profileNameWrapper}>
+                                        <input
+                                            className={styles.profileNameInput}
+                                            value={tempName}
+                                            onChange={(e) => setTempName(e.target.value)}
+                                            autoFocus
+                                            onBlur={() => {
+                                                setTempName(name);
+                                                setIsEditing(false);
+                                            }}
+                                        />
+                                        <IonButton
+                                            className={styles.changeNicknameButton}
+                                            onMouseDown={handleUpdateNickname}
+                                            disabled={tempName.length < 1}
+                                        >
+                                            Save
+                                        </IonButton>
+                                    </div>
+                                ) : (
+                                    <h2 onClick={() => setIsEditing(true)}>{name}</h2>
+                                )}
+                            </div>
+                            <h6 className={styles.greyTextH6}>
+                                Nickname
+                            </h6>
+                        </div>
+                        <div>
+                            <h2>
+                                {localStorage.getItem('username')}
+                            </h2>
+                            <h6 className={styles.greyTextH6}>
+                                Username
+                            </h6>
+                        </div>
                     </div>
-                    <div>
-                        <h2>
-                            {localStorage.getItem('username')}
-                        </h2>
-                        <h6 className={styles.greyTextH6}>
-                            Username
-                        </h6>
+                    <div className={styles.FooterButtonContainer}>
+                        <button className={styles.changePasswordButton}
+                                onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
+                        <button className={styles.changePasswordButton}
+                                onClick={() => setIsOpenChangePassword(true)}
+                        >
+                            Change Password
+                        </button>
+                        <button className={styles.deleteAccountButton}
+                                onClick={() => setIsOpenDeleteAccount(true)}
+                        >
+                            Delete Account
+                        </button>
                     </div>
                 </div>
             </IonContent>
-            <IonFooter>
-                <div className={styles.FooterButtonContainer}>
-                    <button className={styles.changePasswordButton}
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
-                    <button className={styles.changePasswordButton}
-                            onClick={() => setIsOpenChangePassword(true)}
-                    >
-                        Change Password
-                    </button>
-                    <button className={styles.deleteAccountButton}
-                            onClick={() => setIsOpenDeleteAccount(true)}
-                    >
-                        Delete Account
-                    </button>
-                </div>
-            </IonFooter>
             <DeleteAccountAlert
                 isOpen={isOpenDeleteAccount}
                 onClose={() => setIsOpenDeleteAccount(false)}
@@ -180,6 +182,7 @@ const Profile: React.FC = (): JSX.Element => {
                 onChange={handleUpdatePassword}>
             </ChangePasswordModal>
             <IonToast
+                className='ionToast'
                 isOpen={showToast}
                 onDidDismiss={() => {
                     setShowToast(false);
