@@ -29,6 +29,9 @@ const Profile: React.FC = (): JSX.Element => {
     const [showToast, setShowToast] = useState(false);
     const [passwordChanged, setPasswordChanged] = useState(false);
 
+    /**
+     * handles the logout by deleting all local storage and rerouting to login page
+     */
     const handleLogout = () => {
         localStorage.removeItem("nickname");
         localStorage.removeItem("token");
@@ -38,6 +41,9 @@ const Profile: React.FC = (): JSX.Element => {
         setTimeout(() => window.location.reload(), 100);
     }
 
+    /**
+     * handles updating the nickname
+     */
     const handleUpdateNickname = async () => {
         if (!(tempName === name)) {
             const response = await updateNickname(tempName);
@@ -52,6 +58,9 @@ const Profile: React.FC = (): JSX.Element => {
         }
     }
 
+    /**
+     * handles deleting the account
+     */
     const handleDeleteAccount = async () => {
         const response = await deleteAccount();
         if (!response.error) {
@@ -62,6 +71,11 @@ const Profile: React.FC = (): JSX.Element => {
         }
     }
 
+    /**
+     * handles updating the password
+     * @param oldPassword the old password for validation
+     * @param newPassword the new password
+     */
     const handleUpdatePassword = async (oldPassword: string, newPassword: string) => {
         if (!newPassword) {
             console.error("Please enter new password.");
@@ -79,12 +93,6 @@ const Profile: React.FC = (): JSX.Element => {
         }
 
         setShowToast(true);
-    }
-
-    const modal = useRef<HTMLIonModalElement>(null);
-
-    const dismiss = () => {
-        modal.current?.dismiss();
     }
 
     // @ts-ignore

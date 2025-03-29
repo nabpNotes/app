@@ -8,6 +8,14 @@ interface Props {
     onDelete: () => void;
 }
 
+/**
+ * DeleteAccountAlert component that warns the user about the delete action
+ * and asks for confirmation or canceling
+ * @param isOpen if the alert is currently opened
+ * @param onClose defines the action if alert gets closed
+ * @param onDelete defines the action if he account should be deleted
+ * @constructor
+ */
 const DeleteAccountAlert: React.FC<Props> = ({ isOpen, onClose, onDelete }) => {
     return(
         <IonAlert

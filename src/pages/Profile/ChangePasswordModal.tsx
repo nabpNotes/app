@@ -8,6 +8,14 @@ interface Props {
     onChange: (oldPassword: string, newPassword: string) => void
 }
 
+/**
+ * ChangePasswordModal component that allows to enter the old password for validation
+ * and the new password to replace the old one
+ * @param isOpen if the modal is currently opened
+ * @param onClose defines the action if modal gets closed
+ * @param onChange defines the action if a password change is executed
+ * @constructor
+ */
 const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose, onChange }) => {
 
     const [oldPassword, setOldPassword] = useState("");
@@ -16,6 +24,11 @@ const ChangePasswordModal: React.FC<Props> = ({ isOpen, onClose, onChange }) => 
 
     const [isValid, setIsValid] = useState(false);
 
+    /**
+     * useEffect Hook to validate the password fields
+     * - new password has to be repeated
+     * - new password has to be at least 8 characters long
+     */
     useEffect(() => {
         setIsValid(
             oldPassword.length >= 8 &&
