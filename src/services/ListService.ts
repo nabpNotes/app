@@ -23,4 +23,31 @@ async function fetchListsByGroup(id: string) {
     }
 }
 
-export { fetchListsByGroup };
+/**
+ * This function sends a POST request to the server to create a new list.
+ * @param groupId
+ * @param createListDto
+ */
+async function createList(groupId: String, createListDto: any) {
+    try {
+        const response = await fetch(`${API_URL}/list/${groupId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Sending JSON data
+                'Authorization': 'Bearer ' + localStorage.getItem('token'), // Bearer token for authorization
+            },
+            body: JSON.stringify(createListDto),  // Sending the group data in the request body
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create list');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error creating group:', error);
+        return { error: 'An unexpected error occurred', statusCode: 500 };
+    }
+}
+
+export { fetchListsByGroup, createList };

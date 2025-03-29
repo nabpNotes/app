@@ -44,4 +44,33 @@ async function fetchGroup(id: string) {
     }
 }
 
-export { fetchGroups, fetchGroup };
+/**
+ * This function sends a POST request to the server to create a new group.
+ * @param createGroupDto - The data used to create the group (including group name, members, etc.)
+ * @returns The response from the server as json if successful, or an error object if something goes wrong.
+ */
+async function createGroup(createGroupDto: any) {
+    try {
+        const response = await fetch(`${API_URL}/group`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Sending JSON data
+                'Authorization': 'Bearer ' + localStorage.getItem('token'), // Bearer token for authorization
+            },
+            body: JSON.stringify(createGroupDto),  // Sending the group data in the request body
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create group');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error creating group:', error);
+        return { error: 'An unexpected error occurred', statusCode: 500 };
+    }
+}
+
+
+
+export { fetchGroups, fetchGroup, createGroup };

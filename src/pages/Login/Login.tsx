@@ -86,6 +86,7 @@ const Login: React.FC = (): JSX.Element => {
             localStorage.setItem('username', r.username);
             localStorage.setItem('nickname', r.nickname);
             localStorage.setItem('userRole', r.userRole);
+            localStorage.setItem('userId', r.userId);
             router.push('/home');
         }
     }

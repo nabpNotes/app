@@ -1,0 +1,123 @@
+
+
+.contentBox {
+    padding-top: 20px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--card-background-color);
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.inputBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.inputLabel {
+    opacity: 0;
+    font-size: 1.25rem;
+    position: absolute;
+    pointer-events: none;
+    margin-left: 10px;
+    transition: transform 0.2s ease, font-size 0.2s ease;
+    color:  var(--input-placeholder);
+}
+
+.input {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-radius: 0;
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+}
+
+.input::placeholder {
+    font-size: 1.25rem;
+    color:  var(--input-placeholder);
+}
+
+.input:focus + .inputLabel {
+    opacity: 1;
+    transform: translateY(-150%);
+    font-size: 1rem;
+}
+
+.input:not(:placeholder-shown) + .inputLabel {
+    opacity: 1;
+    transform: translateY(-150%);
+    font-size: 1rem;
+}
+
+.inputBox:focus-within .input::placeholder {
+    opacity: 0;
+}
+
+
+
+.userPicker {
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    overflow-y: scroll;
+    flex-grow: 1;
+}
+
+.userItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: var(--background-color);
+    padding: 5px 10px;
+}
+
+.userImage {
+    height: 40px;
+    width: 40px;
+}
+
+.userName {
+    flex-grow: 1;
+}
+
+.addUserIcon {
+    height: 20px;
+}
+
+.controlButtons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.createButton, .cancelButton {
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 0;
+    width: 100%;
+    min-height: 50px;
+    height: 50px;
+
+    color: var(--negative-text-color);
+}
+
+.createButton {
+    background-color: var(--color-success);
+}
+
+.cancelButton {
+    background-color: var(--color-danger);
+}
