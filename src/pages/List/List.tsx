@@ -28,21 +28,36 @@ const List: React.FC = (): JSX.Element => {
         });
         setSocket(socket);
 
+        /**
+         * This function is called when the socket connection is established.
+         */
         socket.on('connect', () => {
             console.log('Socket.io connection established');
             socket.emit('getList', {listId: id});
         });
 
+        /**
+         * This function is called when the list is received from the server.
+         * @param data - The list data
+         */
         socket.on('list', (data) => {
             console.log(data);
             setList(data);
         });
 
+        /**
+         * This function is called when the list items are received from the server.
+         * @param data - The list items data
+         */
         socket.on('listItems', (data) => {
             console.log(data);
             setListItems(data);
         });
 
+        /**
+         * This function is called when a list item is updated.
+         * @param data - The updated list item data
+         */
         socket.on('listItemUpdate', (data) => {
             console.log('update listItem' + JSON.stringify(data));
             setListItems(prevListItems => {
@@ -52,16 +67,27 @@ const List: React.FC = (): JSX.Element => {
             });
         })
 
+        /**
+         * This function is called when the socket connection is closed.
+         */
         socket.on('disconnect', () => {
             console.log('Socket.io connection closed');
             router.goBack();
         });
 
+        /**
+         * This function is called when there is an error with the socket connection.
+         * @param error - The error data
+         */
         socket.on('connect_error', (error) => {
             console.error('Socket.io connection error:', error);
             router.goBack();
         });
 
+        /**
+         * This function is called when the user clicks on a list item.
+         * @param event - The click event
+         */
         const handleItemDataUpdated = (event: CustomEvent) => {
             let requestData = event.detail;
             requestData.listId = id;
@@ -86,6 +112,9 @@ const List: React.FC = (): JSX.Element => {
         }
     }, [list]);
 
+    /**
+     * This function refreshes the list items by emitting a socket event to get the list items.
+     */
     const refreshListItems = () => {
         if (socket) {
             socket.emit('getListItems', {listId: id});
