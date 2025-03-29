@@ -78,4 +78,13 @@ async function login(username: string, password: string) {
         return {error: 'An unexpected Error Occurred', statusCode: 500};
     }
 }
-export {validateToken, register, login};
+
+/**
+ * This function creates a hashed password for the client side
+ * @param password the password that will be hashed
+ */
+function hashPassword(password: string) {
+    return CryptoJS.SHA256(password).toString();
+}
+
+export {validateToken, register, login, hashPassword};

@@ -1,0 +1,143 @@
+.FooterButtonContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+
+.changePasswordButton {
+    width: 100%;
+    background-color: var(--card-background-color);
+    border-radius: 0;
+    height: 50px;
+}
+
+.deleteAccountButton {
+    width: 100%;
+    background-color: var(--card-background-color);
+    color: var(--color-danger);
+    border-radius: 0;
+    height: 50px;
+}
+
+.profileContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.greyTextH6 {
+    color: var(--grey-text);
+}
+
+.profilePic {
+    width: 100px;
+    height: auto;
+}
+
+.changePasswordModal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 10px 10px 10px;
+
+}
+
+.modalButtonsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.cancelButton::part(native) {
+    background-color: var(--color-danger);
+    color: var(--negative-text-color);
+    border-radius: 0;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.changeButton::part(native) {
+    background-color: var(--color-success);
+    color: var(--negative-text-color);
+    border-radius: 0;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.changeNicknameButton::part(native) {
+    background-color: var(--color-success);
+    color: var(--negative-text-color);
+    border-radius: 12px;
+
+}
+
+.modalHeader {
+    align-self: flex-start;
+}
+
+.profileNameWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profileNameItem {
+    padding: 0;
+    background-color: var(--background-color);
+}
+
+.profileNameInput {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 0;
+    font-weight: bold;
+    max-width: 50%;
+}
+
+.errorMessageLabel {
+    color: var(--color-danger);
+    padding: 10px;
+}
+
+.errorMessageLabelWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.background {
+    background-color: var(--background-color);
+    height: fit-content;
+    min-height: 100%;
+    width: 100%;
+    padding-top: 40px;
+}
+
+.headerWrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+
+
+

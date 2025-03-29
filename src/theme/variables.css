@@ -16,7 +16,7 @@ html, body {
     --placeholder-color: #252525;
     --color-danger: #BC2C2E;
     --color-success: #6CEC45;
-
+    --grey-text: #454545;
 }
 
 h1 {
@@ -128,8 +128,35 @@ input:focus {
     height: fit-content;
     min-height: 100%;
     width: 100%;
-    padding: 40px 10px 50px 10px;
+    padding: 40px 10px 10px 10px;
 }
+
+button.alert-button.confirmDeleteButton {
+    background-color: var(--color-danger);
+    color: var(--negative-text-color);
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+button.alert-button.cancelDeleteButton {
+    background-color: var(--color-success);
+    color: var(--negative-text-color);
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+ion-input.modal-password-input {
+    --highlight-color-focused: var(--color-success);
+    --border-color: var(--color-success);
+    --border-radius: 0;
+}
+
+
+.ionToast {
+    --background: var(--card-background-color);
+    --color: var(--text-color);
+}
+
 
 .ionMenu {
     --width: 80%;
