@@ -1,13 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from  "./Profile.module.css";
 import {
-    IonAlert,
     IonButton,
     IonContent,
     IonFooter,
     IonHeader,
-    IonInput,
-    IonModal,
     IonPage,
     IonToast,
     useIonRouter
@@ -15,6 +12,8 @@ import {
 import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
 import {updateNickname, deleteAccount, updatePassword} from "../../services/UserService";
+import DeleteAccountAlert from "./DeleteAccountAlert";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 const Profile: React.FC = (): JSX.Element => {
 
@@ -23,27 +22,12 @@ const Profile: React.FC = (): JSX.Element => {
     const [isOpenDeleteAccount, setIsOpenDeleteAccount] = useState(false);
     const [isOpenChangePassword, setIsOpenChangePassword] = useState(false);
 
-    const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [repeatPassword, setRepeatPassword] = useState("");
-
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(localStorage.getItem('nickname') || "");
     const [tempName, setTempName] = useState(name);
 
     const [showToast, setShowToast] = useState(false);
     const [passwordChanged, setPasswordChanged] = useState(false);
-
-    const [isValid, setIsValid] = useState(false);
-
-    useEffect(() => {
-        setIsValid(
-            oldPassword.length >= 8 &&
-            newPassword.length >= 8 &&
-            repeatPassword.length >= 8 &&
-            newPassword === repeatPassword
-        );
-    }, [oldPassword, newPassword, repeatPassword]);
 
     const handleLogout = () => {
         localStorage.removeItem("nickname");
@@ -71,13 +55,14 @@ const Profile: React.FC = (): JSX.Element => {
     const handleDeleteAccount = async () => {
         const response = await deleteAccount();
         if (!response.error) {
+            console.log("Delete account successful!");
             handleLogout();
         } else {
             console.error("Failed to delete account:", response.error);
         }
     }
 
-    const handleUpdatePassword = async () => {
+    const handleUpdatePassword = async (oldPassword: string, newPassword: string) => {
         if (!newPassword) {
             console.error("Please enter new password.");
             return;
@@ -176,86 +161,16 @@ const Profile: React.FC = (): JSX.Element => {
                     </button>
                 </div>
             </IonFooter>
-            <IonAlert
+            <DeleteAccountAlert
                 isOpen={isOpenDeleteAccount}
-                header="Do you really want to delete your account?"
-                subHeader="This cannot be undone!"
-                className={styles.deleteAccountAlert}
-                buttons={[
-                    {
-                        text: 'Cancel',
-                        role: 'cancel',
-                        cssClass: 'cancelDeleteButton',
-                        handler: () => {
-                            console.log("Delete Account canceled");
-                        }
-                    },
-                    {
-                        text: "Delete",
-                        role: 'delete',
-                        cssClass: 'confirmDeleteButton',
-                        handler: () => {
-                            handleDeleteAccount().then(r => console.log("Delete Action confirmed"))
-                        }
-                    }
-
-                ]}
-                onDidDismiss={() => setIsOpenDeleteAccount(false)}
-            >
-            </IonAlert>
-            <IonModal
-                id="change-password-modal"
+                onClose={() => setIsOpenDeleteAccount(false)}
+                onDelete={handleDeleteAccount}>
+            </DeleteAccountAlert>
+            <ChangePasswordModal
                 isOpen={isOpenChangePassword}
-                onDidDismiss={() => setIsOpenChangePassword(false)}
-            >
-                <IonContent className='ionContent'>
-                    <div className={styles.changePasswordModal}>
-                        <h2 className={styles.modalHeader}>Change your Password</h2>
-                        <IonInput
-                            class="modal-password-input"
-                            type="password"
-                            placeholder="old password"
-                            onIonInput={(e) => setOldPassword(e.detail.value!)}
-                        />
-                        <IonInput
-                            class="modal-password-input"
-                            type="password"
-                            placeholder="new password"
-                            onIonInput={(e) => setNewPassword(e.detail.value!)}
-                        />
-                        <IonInput
-                            class="modal-password-input"
-                            type="password"
-                            placeholder="repeat new password"
-                            onIonInput={(e) => setRepeatPassword(e.detail.value!)}
-                        />
-                        <div className={styles.modalButtonsContainer}>
-                            <IonButton
-                                className={styles.changeButton}
-                                onClick={() => {
-                                    console.log("change password confirmed");
-                                    setIsOpenChangePassword(false);
-                                    handleUpdatePassword().then(() => {
-                                        setIsOpenChangePassword(false);
-                                    })
-                                }}
-                                disabled={!isValid}
-                            >
-                                Change
-                            </IonButton>
-                            <IonButton
-                                className={styles.cancelButton}
-                                onClick={() => {
-                                    console.log("change password canceled");
-                                    setIsOpenChangePassword(false);
-                                }}
-                            >
-                                Cancel
-                            </IonButton>
-                        </div>
-                    </div>
-                </IonContent>
-            </IonModal>
+                onClose={() => setIsOpenChangePassword(false)}
+                onChange={handleUpdatePassword}>
+            </ChangePasswordModal>
             <IonToast
                 isOpen={showToast}
                 onDidDismiss={() => {
