@@ -3,7 +3,6 @@ import styles from  "./Profile.module.css";
 import {
     IonButton,
     IonContent,
-    IonFooter,
     IonHeader,
     IonPage,
     IonToast,
@@ -96,7 +95,6 @@ const Profile: React.FC = (): JSX.Element => {
     }
 
     // @ts-ignore
-    // @ts-ignore
     return (
         <IonPage className={styles.background}>
             <div className={styles.headerWrapper}>
@@ -106,6 +104,8 @@ const Profile: React.FC = (): JSX.Element => {
                         pageTitle={"Profile Settings"}
                         backButton={true}
                         toggleMenu={() => {}}
+                        onSearch={() => {}}
+                        searchItems={[]}
                     />
                 </IonHeader>
             </div>
