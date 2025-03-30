@@ -5,9 +5,8 @@ import GroupListItem from '../components/GroupListItem/GroupListItem';
 import AddGroupDialog from "../components/AddGroupDialog/AddGroupDialog";
 import { menuController } from '@ionic/core/components';
 
-import {fetchGroup, fetchGroups} from '../services/GroupService';
+import {fetchGroups} from '../services/GroupService';
 import {
-    IonButton,
     IonContent,
     IonFooter,
     IonHeader,
@@ -18,7 +17,6 @@ import {
     useIonRouter
 } from "@ionic/react";
 import {validateToken} from "../services/AuthService";
-import {fetchListsByGroup} from "../services/ListService";
 
 /**
  * Home page
@@ -48,7 +46,7 @@ const Home: React.FC = (): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        reloadData();
+        reloadData().then(() => {});
     }, []);
 
     async function toggleMenu() {
@@ -57,7 +55,7 @@ const Home: React.FC = (): JSX.Element => {
 
     function handleRefresh(event: CustomEvent<RefresherEventDetail>) {
         setTimeout(() => {
-            reloadData();
+            reloadData().then(() => {});
             event.detail.complete();
         }, 2000);
     }
@@ -99,7 +97,7 @@ const Home: React.FC = (): JSX.Element => {
                 <AddGroupDialog
                     onClose={() => {
                         setIsModalOpen(false);
-                        reloadData();
+                        reloadData().then(() => {});
                     }}
                     setToastMessage={setToastMessage}
                     setShowToast={setShowToast}/>
