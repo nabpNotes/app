@@ -2,10 +2,55 @@
     --background: var(--background-color);
     --border-color: transparent;
     --padding-start: 0;
+    width: 100%;
 }
 
-.textItemContent {
+.checkboxLabel {
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.checklistItem {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.checklistItemContent {
     width: 100%;
+}
+
+.titleEditInput {
+    background-color: var(--background-color);
+    width: 100%;
+    border-radius: 0;
+    padding: 0;
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.descriptionEditInput {
+    background-color: var(--background-color);
+    width: 100%;
+    border-radius: 0;
+    padding: 0;
+    color: var(--text-color);
+    font-family: Poppins, sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
 }
 
 .confirmationButtonsContainer {
@@ -27,38 +72,4 @@
 .confirmationButtonIcons {
     width: 30px;
     float: left;
-}
-
-.titleEditInput {
-    background-color: var(--background-color);
-    width: 100%;
-    border-radius: 0;
-    padding: 0;
-    color: var(--text-color);
-    font-family: Poppins, sans-serif;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin: 0;
-}
-
-.textEditInput {
-    background-color: var(--background-color);
-    width: 100%;
-    border-radius: 0;
-    padding: 0;
-    border: none;
-    resize: none;
-    color: var(--text-color);
-    font-family: Poppins, sans-serif;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0;
-}
-
-.textEditInput:focus {
-    outline: none;
 }

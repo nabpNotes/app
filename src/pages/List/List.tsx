@@ -6,6 +6,7 @@ import {io, Socket} from "socket.io-client";
 import {useParams} from "react-router";
 import TextItem from "../../components/ListItem/TextItem/TextItem";
 import {updateListItem} from "../../services/ListItemService";
+import ChecklistItem from "../../components/ListItem/ChecklistItem/ChecklistItem";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -72,7 +73,7 @@ const List: React.FC = (): JSX.Element => {
          */
         socket.on('disconnect', () => {
             console.log('Socket.io connection closed');
-            router.goBack();
+            //router.goBack();
         });
 
         /**
@@ -137,6 +138,10 @@ const List: React.FC = (): JSX.Element => {
                         switch (listItem.type) {
                             case 'text':
                                 return <TextItem
+                                    key={listItem.id}
+                                    itemData={listItem}/>;
+                            case 'checklist':
+                                return <ChecklistItem
                                     key={listItem.id}
                                     itemData={listItem}/>;
                             default:
