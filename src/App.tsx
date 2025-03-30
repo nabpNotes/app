@@ -48,6 +48,9 @@ const App: React.FC = () => (
           <Redirect to="/login" />
         </Route>
         <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route exact path="/home">
           <Home />
         </Route>
         <Route exact path="/login">
