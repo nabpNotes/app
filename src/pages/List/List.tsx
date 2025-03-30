@@ -15,6 +15,7 @@ import {useParams} from "react-router";
 import TextItem from "../../components/ListItem/TextItem/TextItem";
 import {updateListItem} from "../../services/ListItemService";
 import AddListItemDialog from "../../components/AddListItemDialog/AddListItemDialog";
+import ChecklistItem from "../../components/ListItem/ChecklistItem/ChecklistItem";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -23,8 +24,8 @@ const API_URL = import.meta.env.VITE_API_URL as string;
  * @returns {JSX.Element} - The rendered component.
  */
 const List: React.FC = (): JSX.Element => {
-    const router = useIonRouter();
     const { id } = useParams<{ id: string }>();
+    const router = useIonRouter();
     const [list, setList] = useState(Object);
     const [listItems, setListItems] = useState<any[]>([]);
     const [socket, setSocket] = useState<Socket>();
@@ -85,7 +86,7 @@ const List: React.FC = (): JSX.Element => {
          */
         socket.on('disconnect', () => {
             console.log('Socket.io connection closed');
-            router.goBack();
+            //router.goBack();
         });
 
         /**
@@ -150,6 +151,8 @@ const List: React.FC = (): JSX.Element => {
                     pageTitle={list.name}
                     backButton={true}
                     toggleMenu={() => {}}
+                    onSearch={() => {}}
+                    searchItems={[]}
                 />
             </IonHeader>
             <IonContent className="ionContent">
@@ -158,6 +161,10 @@ const List: React.FC = (): JSX.Element => {
                         switch (listItem.type) {
                             case 'text':
                                 return <TextItem
+                                    key={listItem.id}
+                                    itemData={listItem}/>;
+                            case 'checklist':
+                                return <ChecklistItem
                                     key={listItem.id}
                                     itemData={listItem}/>;
                             default:

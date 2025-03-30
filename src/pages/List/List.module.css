@@ -1,7 +1,7 @@
 .listsItemContainer {
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
+    margin: 20px 10px;
     gap: 10px;
 }
 

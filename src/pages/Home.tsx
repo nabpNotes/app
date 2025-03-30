@@ -27,6 +27,7 @@ import {validateToken} from "../services/AuthService";
 const Home: React.FC = (): JSX.Element => {
     const router = useIonRouter();
     const [groups, setGroups] = useState([]);
+    const [filteredGroups, setFilteredGroups] = useState([]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -36,6 +37,7 @@ const Home: React.FC = (): JSX.Element => {
     const reloadData = async () => {
         fetchGroups().then((data) => {
             setGroups(data);
+            setFilteredGroups(data);
         });
     };
 
@@ -60,6 +62,10 @@ const Home: React.FC = (): JSX.Element => {
         }, 2000);
     }
 
+    const handleSearch = (filteredData: string[]) => {
+        setFilteredGroups(groups.filter((a: any) => filteredData.includes(a.name)))
+    }
+
     return (
         <>
             <IonPage id="homeMenu" className="background">
@@ -68,14 +74,16 @@ const Home: React.FC = (): JSX.Element => {
                     searchable={true}
                     pageTitle={"WG Uni 🏚️"}
                     backButton={false}
-                    toggleMenu={toggleMenu}/>
+                    toggleMenu={toggleMenu}
+                    searchItems={groups.map((a: any) => a.name)}
+                    onSearch={handleSearch}/>
             </IonHeader>
             <IonContent className="ionContent">
                 <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
                     <IonRefresherContent> </IonRefresherContent>
                 </IonRefresher>
                 <div className={styles.groupList}>
-                    {groups.map((group: any) => (
+                    {filteredGroups.map((group: any) => (
                         <GroupListItem
                             key={group._id}
                             itemId={group._id}
