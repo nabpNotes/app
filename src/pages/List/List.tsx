@@ -128,6 +128,7 @@ const List: React.FC = (): JSX.Element => {
                     searchable={false}
                     pageTitle={list.name}
                     backButton={true}
+                    toggleMenu={() => {}}
                 />
             </IonHeader>
             <IonContent className="ionContent">

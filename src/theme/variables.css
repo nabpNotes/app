@@ -128,7 +128,7 @@ input:focus {
     height: fit-content;
     min-height: 100%;
     width: 100%;
-    padding: 40px 10px 10px 10px;
+    padding-top: 40px;
 }
 
 button.alert-button.confirmDeleteButton {

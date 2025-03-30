@@ -96,6 +96,7 @@ const Profile: React.FC = (): JSX.Element => {
     }
 
     // @ts-ignore
+    // @ts-ignore
     return (
         <IonPage className={styles.background}>
             <div className={styles.headerWrapper}>
@@ -104,6 +105,7 @@ const Profile: React.FC = (): JSX.Element => {
                         searchable={false}
                         pageTitle={"Profile Settings"}
                         backButton={true}
+                        toggleMenu={() => {}}
                     />
                 </IonHeader>
             </div>
