@@ -26,7 +26,7 @@ const Login: React.FC = (): JSX.Element => {
 
     useEffect(() => {
         validateToken().then(r => {
-            r ? router.push('/') : null;
+            r ? router.push('/home') : null;
         });
     }, []);
 

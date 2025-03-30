@@ -14,8 +14,8 @@ const API_URL = import.meta.env.VITE_API_URL as string;
  * @returns {JSX.Element} - The rendered component.
  */
 const List: React.FC = (): JSX.Element => {
-    const router = useIonRouter();
     const { id } = useParams<{ id: string }>();
+    const router = useIonRouter();
     const [list, setList] = useState(Object);
     const [listItems, setListItems] = useState<any[]>([]);
     const [socket, setSocket] = useState<Socket>();

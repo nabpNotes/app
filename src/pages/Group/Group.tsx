@@ -28,8 +28,8 @@ import {menuController} from "@ionic/core/components";
  * It displays the lists of the group.
  **/
 const Group: React.FC = (): JSX.Element => {
-    const router = useIonRouter();
     const { id } = useParams<{ id: string }>();
+    const router = useIonRouter();
     const [group, setGroup] = useState(Object);
     const [lists, setLists] = useState([]);
 

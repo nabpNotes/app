@@ -3,6 +3,7 @@
     flex-direction: column;
     gap: 10px;
     padding-top: 50px;
+    margin: 0 10px;
 }
 
 .logoContainer {
