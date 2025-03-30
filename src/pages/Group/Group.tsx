@@ -76,7 +76,9 @@ const Group: React.FC = (): JSX.Element => {
                         searchable={false}
                         pageTitle={group.name}
                         backButton={true}
-                        toggleMenu={toggleMenu}/>
+                        toggleMenu={toggleMenu}
+                        onSearch={() => {}}
+                        searchItems={[]}/>
                 </IonHeader>
                 <IonContent className="ionContent">
                     <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
