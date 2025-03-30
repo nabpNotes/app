@@ -60,56 +60,47 @@ const AddGroupDialog: React.FC<AddGroupDialogProps> = ({ onClose, setToastMessag
         );
     };
 
-
     const filteredUsers = users.filter(user =>
         user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Handle group creation and notify with toast
     const handleCreateGroup = async () => {
         const userId = localStorage.getItem('userId');
         if (!userId) return;
 
-        // Create group admin object
         const me = {
             userId,
             role: 'groupadmin',
             joinedAt: Date.now(),
         };
 
-        // Create members array (including the admin and selected users)
         let members = users
-            .filter(user => user.added) // Only users that are added
+            .filter(user => user.added)
             .map(user => ({
                 userId: user.userId,
                 role: 'user',
                 joinedAt: Date.now(),
             }));
 
-        members.unshift(me); // Add admin as the first member
+        members.unshift(me);
 
-        // Group creation payload
         const createGroupDto = {
             name: groupName || 'My New Group',
             members,
-            lists: [], // Assuming you want to manage lists later
+            lists: [],
             createdAt: Date.now()
         };
 
         try {
-            // Create the group by calling the service function
             const response = await createGroup(createGroupDto);
 
-            // Set success message and show toast
             setToastMessage(response.message);
             setShowToast(true);
         } catch (error) {
-            // Handle error by setting the message and showing toast
-            setToastMessage("Ein Fehler ist aufgetreten!");
+            setToastMessage("Error creating group");
             setShowToast(true);
         }
 
-        // Close the dialog after attempting to create the group
         onClose();
     };
 

@@ -3,6 +3,7 @@
 .contentBox {
     padding-top: 20px;
     min-height: 50px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;

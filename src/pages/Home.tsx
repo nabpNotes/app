@@ -3,9 +3,19 @@ import React, {useEffect, useState} from "react";
 import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
 import AddGroupDialog from "../components/AddGroupDialog/AddGroupDialog";
+import { menuController } from '@ionic/core/components';
 
 import {fetchGroups} from '../services/GroupService';
-import {IonContent, IonFooter, IonHeader, IonModal, IonPage, IonToast, useIonRouter} from "@ionic/react";
+import {
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonMenu, IonMenuToggle,
+    IonModal,
+    IonPage, IonRefresher, IonRefresherContent,
+    IonToast, RefresherEventDetail,
+    useIonRouter
+} from "@ionic/react";
 import {validateToken} from "../services/AuthService";
 
 /**
@@ -23,6 +33,12 @@ const Home: React.FC = (): JSX.Element => {
     const [toastMessage, setToastMessage] = useState("");
     const [showToast, setShowToast] = useState(false);
 
+    const reloadData = async () => {
+        fetchGroups().then((data) => {
+            setGroups(data);
+        });
+    };
+
     useEffect(() => {
         validateToken().then(r => {
             !r ? router.push('/login') : null;
@@ -30,29 +46,41 @@ const Home: React.FC = (): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        fetchGroups().then((data) => {
-            setGroups(data);
-        });
+        reloadData().then(() => {});
     }, []);
 
+    async function toggleMenu() {
+        await menuController.open('homeMenu');
+    }
+
+    function handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+        setTimeout(() => {
+            reloadData().then(() => {});
+            event.detail.complete();
+        }, 2000);
+    }
+
     return (
-        <IonPage className='background'>
+        <>
+            <IonPage id="homeMenu" className="background">
             <IonHeader className='ionHeader'>
                 <Toolbar
                     searchable={true}
                     pageTitle={"WG Uni 🏚️"}
                     backButton={false}
-                />
+                    toggleMenu={toggleMenu}/>
             </IonHeader>
             <IonContent className="ionContent">
+                <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+                    <IonRefresherContent> </IonRefresherContent>
+                </IonRefresher>
                 <div className={styles.groupList}>
                     {groups.map((group: any) => (
                         <GroupListItem
                             key={group._id}
                             itemId={group._id}
                             type={'group'}
-                            title={group.name}
-                        />
+                            title={group.name}/>
                     ))}
                 </div>
             </IonContent>
@@ -66,9 +94,13 @@ const Home: React.FC = (): JSX.Element => {
 
             <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
                       breakpoints={[0, 1]} initialBreakpoint={1} className={styles.ionModal}>
-                <AddGroupDialog onClose={() => setIsModalOpen(false)}
-                                setToastMessage={setToastMessage}
-                                setShowToast={setShowToast}/>
+                <AddGroupDialog
+                    onClose={() => {
+                        setIsModalOpen(false);
+                        reloadData().then(() => {});
+                    }}
+                    setToastMessage={setToastMessage}
+                    setShowToast={setShowToast}/>
             </IonModal>
             <IonToast
                 isOpen={showToast}
@@ -76,9 +108,23 @@ const Home: React.FC = (): JSX.Element => {
                     setShowToast(false);
                 }}
                 message={toastMessage}
-                duration={2000}
-            />
-        </IonPage>
+                duration={2000}/>
+
+            </IonPage>
+
+            <IonMenu className="ionMenu" side="end" contentId="homeMenu" menuId="homeMenu">
+                <IonContent className="ionMenuContent">
+                    <div className="verticalFlexbox">
+                        <IonMenuToggle>
+                            <div className="profileSettingsBtn" onClick={() => router.push('/profile')}>
+                                <img src="src/assets/icons/exampleProfilePicture.svg" alt="profilepic"/>
+                                <h4>Profile Settings</h4>
+                            </div>
+                        </IonMenuToggle>
+                    </div>
+                </IonContent>
+            </IonMenu>
+        </>
     );
 };
 
