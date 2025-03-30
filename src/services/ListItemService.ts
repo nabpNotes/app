@@ -26,4 +26,29 @@ async function updateListItem(id: string, requestData: any) {
     }
 }
 
-export { updateListItem };
+/**
+ * Creates a new list item by making a POST request to the API.
+ *
+ * @param {Object} requestData - The data to be included in the request body to create the list item.
+ * @returns {Object} The response data from the API or an error message if the request fails.
+ */
+async function createListItem(requestData: any) {
+    try {
+        const response = await fetch(`${API_URL}/list-item`, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
+export { updateListItem, createListItem };
