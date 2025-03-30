@@ -14,7 +14,7 @@ import {
 import {validateToken} from "../../services/AuthService";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import GroupListItem from "../../components/GroupListItem/GroupListItem";
-import {fetchGroup, fetchGroups} from "../../services/GroupService";
+import {fetchGroup} from "../../services/GroupService";
 import {useParams} from "react-router";
 import {fetchListsByGroup} from "../../services/ListService";
 import AddListDialog from "../../components/AddListDialog/AddListDialog";
@@ -119,7 +119,8 @@ const Group: React.FC = (): JSX.Element => {
                     }}
                     message={toastMessage}
                     duration={2000}/>
-            </IonPage><IonMenu className="ionMenu" side="end" contentId="groupMenu" menuId="groupMenu">
+            </IonPage>
+            <IonMenu className="ionMenu" side="end" contentId="groupMenu" menuId="groupMenu">
                 <IonContent className="ionMenuContent">
                     <div className="verticalFlexbox">
                         <IonMenuToggle>

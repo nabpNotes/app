@@ -1,11 +1,20 @@
 import styles from './List.module.css';
-import {IonContent, IonFooter, IonHeader, IonPage, useIonRouter} from "@ionic/react";
+import {
+    IonContent,
+    IonFooter,
+    IonHeader,
+    IonModal,
+    IonPage,
+    IonToast,
+    useIonRouter
+} from "@ionic/react";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import React, {useEffect, useState} from "react";
 import {io, Socket} from "socket.io-client";
 import {useParams} from "react-router";
 import TextItem from "../../components/ListItem/TextItem/TextItem";
 import {updateListItem} from "../../services/ListItemService";
+import AddListItemDialog from "../../components/AddListItemDialog/AddListItemDialog";
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -19,6 +28,10 @@ const List: React.FC = (): JSX.Element => {
     const [list, setList] = useState(Object);
     const [listItems, setListItems] = useState<any[]>([]);
     const [socket, setSocket] = useState<Socket>();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [showToast, setShowToast] = useState(false);
 
     useEffect(() => {
         const socket = io(`${API_URL}`, {//TODO: Socket connection must be refactored
@@ -121,6 +134,14 @@ const List: React.FC = (): JSX.Element => {
         }
     }
 
+
+    const reloadData = () => {
+        if (socket) {
+            socket.emit('getList', { listId: id });
+            socket.emit('getListItems', { listId: id });
+        }
+    };
+
     return (
         <IonPage className='background'>
             <IonHeader className='ionHeader'>
@@ -147,9 +168,29 @@ const List: React.FC = (): JSX.Element => {
             </IonContent>
             <IonFooter>
                 <div className={styles.addButtonContainer}>
-                    <button className={styles.addButton}>+</button>
+                    <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
+                        Add Item
+                    </button>
                 </div>
             </IonFooter>
+            <IonModal isOpen={isModalOpen} onDidDismiss={() => setIsModalOpen(false)}
+                      breakpoints={[0, 1]} initialBreakpoint={1} className={styles.ionModal}>
+                <AddListItemDialog
+                    onClose={() => {
+                        setIsModalOpen(false);
+                        reloadData();
+                    }}
+                    setToastMessage={setToastMessage}
+                    setShowToast={setShowToast}
+                    listId={id}/>
+            </IonModal>
+            <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => {
+                    setShowToast(false);
+                }}
+                message={toastMessage}
+                duration={2000}/>
         </IonPage>
     );
 };
