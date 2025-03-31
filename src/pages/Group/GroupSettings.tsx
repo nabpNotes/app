@@ -132,7 +132,7 @@ const GroupSettings: React.FC = (): JSX.Element => {
                         <button className={styles.deleteAccountButton}
                                 onClick={() => handleDeleteGroup(id)}
                         >
-                            Delete Account
+                            Delete Group
                         </button>
                     </div>
                 </div>
