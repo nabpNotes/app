@@ -157,15 +157,15 @@ const List: React.FC = (): JSX.Element => {
             </IonHeader>
             <IonContent className="ionContent">
                 <div className={styles.listsItemContainer}>
-                    {listItems.map((listItem: any) => {
+                    {listItems.map((listItem: any, index: number) => {
                         switch (listItem.type) {
                             case 'text':
                                 return <TextItem
-                                    key={listItem.id}
+                                    key={index}
                                     itemData={listItem}/>;
                             case 'checklist':
                                 return <ChecklistItem
-                                    key={listItem.id}
+                                    key={index}
                                     itemData={listItem}/>;
                             default:
                                 return null;
