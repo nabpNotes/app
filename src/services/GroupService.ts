@@ -61,9 +61,9 @@ async function fetchUserInGroup(id: string) {
     }
 }
 
-async function addGroupMember(groupId: string, nickname: string) {
+async function addGroupMember(groupId: string, username: string) {
     try {
-        const response = await fetch(`${API_URL}/group/${groupId}/add/user/${nickname}`, {
+        const response = await fetch(`${API_URL}/group/${groupId}/add/user/${username}`, {
             method: 'PATCH',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')

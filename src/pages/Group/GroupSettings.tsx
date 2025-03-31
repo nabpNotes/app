@@ -25,17 +25,15 @@ const GroupSettings: React.FC = (): JSX.Element => {
 
     const { id } = useParams<{ id: string }>();
 
-    const [isOpenDeleteAccount, setIsOpenDeleteAccount] = useState(false);
-    const [isOpenChangePassword, setIsOpenChangePassword] = useState(false);
-
     const [showToast, setShowToast] = useState(false);
-    const [passwordChanged, setPasswordChanged] = useState(false);
+    const [groupDeleted, setGroupDeleted] = useState(false);
+    const [userDeleted, setUserDeleted] = useState(false);
+    const [userAdded, setUserAdded] = useState(false);
+
 
     const [group, setGroup] = useState(Object);
     const [members, setMembers] = useState([]);
     const [newMember, setNewMember] = useState("");
-
-
 
     const handleRemoveMember = async (groupId: string, userId: string) => {
         await removeGroupMember(groupId, userId);
@@ -47,7 +45,6 @@ const GroupSettings: React.FC = (): JSX.Element => {
         await deleteGroup(groupId);
         await reloadData();
     }
-
 
     const handleAddMember = async () => {
         if (newMember.trim() === "") return
@@ -146,7 +143,27 @@ const GroupSettings: React.FC = (): JSX.Element => {
                 onDidDismiss={() => {
                     setShowToast(false);
                 }}
-                message={"Changing Password " + (passwordChanged ? "successful" : "failed")}
+                message={"Delete Group " + (groupDeleted ? "successful" : "failed")}
+                duration={2000}
+            >
+            </IonToast>
+            <IonToast
+                className='ionToast'
+                isOpen={showToast}
+                onDidDismiss={() => {
+                    setShowToast(false);
+                }}
+                message={"Add User " + (userAdded ? "successful" : "failed")}
+                duration={2000}
+            >
+            </IonToast>
+            <IonToast
+                className='ionToast'
+                isOpen={showToast}
+                onDidDismiss={() => {
+                    setShowToast(false);
+                }}
+                message={"Remove User " + (userDeleted ? "successful" : "failed")}
                 duration={2000}
             >
             </IonToast>
