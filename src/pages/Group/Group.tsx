@@ -131,10 +131,12 @@ const Group: React.FC = (): JSX.Element => {
                                 <h4>Profile Settings</h4>
                             </div>
                         </IonMenuToggle>
-                        <div className="groupSettingsBtn">
-                            <h4>{group.name}</h4>
-                            <h4>Group Settings</h4>
-                        </div>
+                        <IonMenuToggle>
+                            <div className="groupSettingsBtn" onClick={() => router.push('/group/' + id + '/settings')}>
+                                <h4>{group.name}</h4>
+                                <h4>Group Settings</h4>
+                            </div>
+                        </IonMenuToggle>
                     </div>
                 </IonContent>
             </IonMenu>
