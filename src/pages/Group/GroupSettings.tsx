@@ -41,8 +41,13 @@ const GroupSettings: React.FC = (): JSX.Element => {
     }
 
     const handleDeleteGroup = async (groupId: string) => {
-        router.push('/home')
-        await deleteGroup(groupId);
+        const response = await deleteGroup(groupId);
+        if (response.success) {
+            setGroupDeleted(true);
+            setTimeout(() => {
+                router.push("/home");
+            }, 2000);
+        }
         await reloadData();
     }
 
