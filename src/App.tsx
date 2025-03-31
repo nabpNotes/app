@@ -37,6 +37,7 @@ import './theme/variables.css';
 import Group from "./pages/Group/Group";
 import List from "./pages/List/List";
 import Profile from "./pages/Profile/Profile";
+import GroupSettings from './pages/Group/GroupSettings';
 
 setupIonicReact();
 
@@ -58,6 +59,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/group/:id">
           <Group />
+        </Route>
+        <Route exact path="/group/:id/settings">
+          <GroupSettings />
         </Route>
         <Route exact path="/list/:id">
           <List />

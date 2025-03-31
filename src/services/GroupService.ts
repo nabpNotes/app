@@ -44,6 +44,40 @@ async function fetchGroup(id: string) {
     }
 }
 
+async function fetchUserInGroup(id: string) {
+    try {
+        const response = await fetch(`${API_URL}/group/${id}/user`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
+async function addGroupMember(groupId: string, nickname: string) {
+    try {
+        const response = await fetch(`${API_URL}/group/${groupId}/add/user/${nickname}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
 /**
  * This function sends a POST request to the server to create a new group.
  * @param createGroupDto - The data used to create the group (including group name, members, etc.)
@@ -71,6 +105,39 @@ async function createGroup(createGroupDto: any) {
     }
 }
 
+async function removeGroupMember(groupId: string, userId: string) {
+    try {
+        const response = await fetch(`${API_URL}/group/${groupId}/user/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
+
+async function deleteGroup(id: string) {
+    try {
+        const response = await fetch(`${API_URL}/group/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error(error);
+        return {error: 'An unexpected Error Occurred', statusCode: 500};
+    }
+}
 
 
-export { fetchGroups, fetchGroup, createGroup };
+export { fetchGroups, fetchGroup, fetchUserInGroup, createGroup, addGroupMember, removeGroupMember, deleteGroup };

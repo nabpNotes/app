@@ -119,7 +119,8 @@ const Group: React.FC = (): JSX.Element => {
                     }}
                     message={toastMessage}
                     duration={2000}/>
-            </IonPage><IonMenu className="ionMenu" side="end" contentId="groupMenu" menuId="groupMenu">
+            </IonPage>
+            <IonMenu className="ionMenu" side="end" contentId="groupMenu" menuId="groupMenu">
                 <IonContent className="ionMenuContent">
                     <div className="verticalFlexbox">
                         <IonMenuToggle>
@@ -128,10 +129,12 @@ const Group: React.FC = (): JSX.Element => {
                                 <h4>Profile Settings</h4>
                             </div>
                         </IonMenuToggle>
-                        <div className="groupSettingsBtn">
-                            <h4>{group.name}</h4>
-                            <h4>Group Settings</h4>
-                        </div>
+                        <IonMenuToggle>
+                            <div className="groupSettingsBtn" onClick={() => router.push('/group/' + id + '/settings')}>
+                                <h4>{group.name}</h4>
+                                <h4>Group Settings</h4>
+                            </div>
+                        </IonMenuToggle>
                     </div>
                 </IonContent>
             </IonMenu>
