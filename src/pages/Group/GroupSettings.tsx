@@ -1,9 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from  "./GroupSettings.module.css";
 import {
-    IonButton,
     IonContent,
-    IonFooter,
     IonHeader,
     IonPage,
     IonRefresher,
@@ -17,7 +15,7 @@ import Toolbar from "../../components/Toolbar/Toolbar";
 import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
 import { fetchGroup, fetchUserInGroup, addGroupMember, removeGroupMember, deleteGroup } from "../../services/GroupService";
 import { useParams } from "react-router";
-import { set } from "mongoose";
+//import { set } from "mongoose";
 
 const GroupSettings: React.FC = (): JSX.Element => {
 
@@ -81,7 +79,7 @@ const GroupSettings: React.FC = (): JSX.Element => {
             event.detail.complete();
         }, 2000);
     }
-    // @ts-ignore
+
     // @ts-ignore
     return (
         <IonPage className={styles.background}>
@@ -92,7 +90,8 @@ const GroupSettings: React.FC = (): JSX.Element => {
                         pageTitle={"Group Settings"}
                         backButton={true}
                         toggleMenu={() => {toggleMenu}}
-                    />
+                        onSearch={() => {}}
+                        searchItems={[]}/>
                 </IonHeader>
             </div>
             <IonContent className='ionContent'>
@@ -121,7 +120,7 @@ const GroupSettings: React.FC = (): JSX.Element => {
                                 />
                                 <button className={styles.addMemberButton} onClick={handleAddMember}>+</button>
                             </div>         
-                            {members.map((member: any, i: number) => (
+                            {members?.map((member: any, i: number) => (
                                     <div key={i} className={styles.memberContainer}>
                                         <img className={styles.profilePic} src={placeholderProfilePic} alt="profile-pic" />
                                         <div style={{ flexGrow: 1 }}>
@@ -130,7 +129,7 @@ const GroupSettings: React.FC = (): JSX.Element => {
                                         </div>
                                         <button className={styles.removeButton} onClick={() => handleRemoveMember(id, member._id)}>remove</button>
                                     </div>
-                            ))}
+                            )) || <p>Loading...</p>}
                         </div>
                     </div>
                     <div className={styles.FooterButtonContainer}>
