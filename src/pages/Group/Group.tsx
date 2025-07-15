@@ -19,6 +19,7 @@ import {useParams} from "react-router";
 import {fetchListsByGroup} from "../../services/ListService";
 import AddListDialog from "../../components/AddListDialog/AddListDialog";
 import {menuController} from "@ionic/core/components";
+import placeholderProfilePic from "../../assets/icons/placeholder-profile-pic.svg";
 
 
 /**
@@ -127,7 +128,7 @@ const Group: React.FC = (): JSX.Element => {
                     <div className="verticalFlexbox">
                         <IonMenuToggle>
                             <div className="profileSettingsBtn" onClick={() => router.push('/profile')}>
-                                <img src="src/assets/icons/exampleProfilePicture.svg" alt="profilepic"/>
+                                <img src={placeholderProfilePic} alt="profilepic"/>
                                 <h4>Profile Settings</h4>
                             </div>
                         </IonMenuToggle>

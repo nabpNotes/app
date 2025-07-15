@@ -1,9 +1,11 @@
 import styles from './Home.module.css';
 import React, {useEffect, useState} from "react";
+import placeholderProfilePic from "../assets/icons/placeholder-profile-pic.svg";
 import Toolbar from '../components/Toolbar/Toolbar';
 import GroupListItem from '../components/GroupListItem/GroupListItem';
 import AddGroupDialog from "../components/AddGroupDialog/AddGroupDialog";
 import { menuController } from '@ionic/core/components';
+
 
 import {fetchGroups} from '../services/GroupService';
 import {
@@ -125,7 +127,7 @@ const Home: React.FC = (): JSX.Element => {
                     <div className="verticalFlexbox">
                         <IonMenuToggle>
                             <div className="profileSettingsBtn" onClick={() => router.push('/profile')}>
-                                <img src="src/assets/icons/exampleProfilePicture.svg" alt="profilepic"/>
+                                <img src={placeholderProfilePic} alt="profilepic"/>
                                 <h4>Profile Settings</h4>
                             </div>
                         </IonMenuToggle>
